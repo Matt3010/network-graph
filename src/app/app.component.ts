@@ -34,12 +34,14 @@ export class AppComponent implements OnInit {
   linkStrokeOpacity: number = 0.7; // Opacità predefinita dei link
   linkStrokeWidth: number = 4; // Larghezza predefinita dei link
   zoomScaleExtent: [number, number] = [0.1, 2]; // Intervallo di scala predefinito
-  centerForceStrength: number = -(this.docsAmount); // Forza centrale predefinita
+  centerForceStrength: number = -(50); // Forza centrale predefinita
   resizeTransitionDuration: number = 500; // Durata predefinita della transizione durante il ridimensionamento
   resizeForceCenterDuration: number = 200; // Durata predefinita della transizione durante il recentraggio
   radiusImportanceRadius: number = 1; // Raggio di importanza per il calcolo del raggio dei nodi
 
   color = d3.scaleOrdinal(d3.schemeDark2);
+  linkedNodesMap: Map<any, any[]> = new Map();
+  linkedLinksMap: Map<any, any[]> = new Map();
 
   constructor() {}
 
@@ -92,6 +94,7 @@ export class AppComponent implements OnInit {
       .force("charge", d3.forceManyBody().strength(this.centerForceStrength))
       .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide())
+      .force("gravity", d3.forceRadial(0, this.width / 2, this.height / 2).strength(0.1)) // Aggiungi la forza di gravità
       .on("tick", ticked)
       .restart();
 
@@ -130,7 +133,7 @@ export class AppComponent implements OnInit {
       .on("mouseout", (event: any, d: any) => this.nodeMouseOut(event, d))
       .attr("style", "cursor: pointer")
       .style('filter', 'drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.2))')
-  .call(d3.drag()
+      .call(d3.drag()
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", dragended));
@@ -144,6 +147,26 @@ export class AppComponent implements OnInit {
       node.attr("cx", (d: any) => (d as any).x)
         .attr("cy", (d: any) => (d as any).y);
     }
+
+    for (const link of links) {
+      const sourceNode = link.source;
+      const targetNode = link.target;
+
+      if (!this.linkedLinksMap.has(sourceNode)) {
+        this.linkedLinksMap.set(sourceNode, []);
+      }
+      if (!this.linkedLinksMap.has(targetNode)) {
+        this.linkedLinksMap.set(targetNode, []);
+      }
+
+      const sourceLinks = this.linkedLinksMap.get(sourceNode);
+      const targetLinks = this.linkedLinksMap.get(targetNode);
+
+      if (sourceLinks && targetLinks) {
+        sourceLinks.push(link);
+        targetLinks.push(link);
+      }
+    }
   }
 
   generateData(numDocuments: number, numTopics: number, similarityProbability: number) {
@@ -152,8 +175,10 @@ export class AppComponent implements OnInit {
       links: []
     };
 
+    const topics = Array.from({ length: numTopics }, (_, i) => i + 1);
+
     for (let i = 1; i <= numDocuments; i++) {
-      const topic = Math.ceil(Math.random() * numTopics);
+      const topic = topics[Math.floor(Math.random() * numTopics)];
       data.nodes.push({ id: "Document " + i, topic: topic });
     }
 
@@ -208,12 +233,7 @@ export class AppComponent implements OnInit {
     console.log("Clicked Node:", nodeData);
 
     // Seleziona i nodi primi figli e fratelli diretti del nodo cliccato
-    const connectedNodes = this.svg.selectAll("line")
-      .filter((linkData: any) => linkData.source === nodeData || linkData.target === nodeData)
-      .data()
-      .flatMap((linkData: any) => [linkData.source, linkData.target]);
-
-    // Verifica se il nodo ha collegamenti
+    const connectedNodes = this.getConnectedNodes(nodeData);
     const hasLinks = connectedNodes.length > 0;
 
     // Imposta l'opacità dei nodi primi figli e fratelli diretti solo se ci sono collegamenti
@@ -243,22 +263,38 @@ export class AppComponent implements OnInit {
       });
   }
 
+  private getConnectedNodes(nodeData: any): any {
+    if (this.linkedNodesMap.has(nodeData)) {
+      return this.linkedNodesMap.get(nodeData);
+    } else {
+      const connectedLinks = this.linkedLinksMap.get(nodeData);
+      if (connectedLinks) {
+        const connectedNodes = connectedLinks.flatMap((linkData: any) => [
+          linkData.source,
+          linkData.target
+        ]);
+
+        this.linkedNodesMap.set(nodeData, connectedNodes);
+        return connectedNodes;
+      } else {
+        return [];
+      }
+    }
+  }
+
   private nodeMouseOver = (event: any, d: any): void => {
     d3.select(event.target)
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", (d: any) => this.calculateNodeRadius(d) + this.nodeRadiusHoverIncrement); // Aggiungi incremento al raggio durante il mouseover
+      .attr("r", (d: any) => this.calculateNodeRadius(d) + this.nodeRadiusHoverIncrement);
 
-    const linkedNodes = this.svg.selectAll("line")
-      .filter((linkData: any) => linkData.source === d || linkData.target === d)
-      .data()
-      .flatMap((linkData: any) => [linkData.source, linkData.target]);
+    const linkedNodes = this.getConnectedNodes(d);
 
     this.svg.selectAll("circle")
       .filter((nodeData: any) => linkedNodes.includes(nodeData))
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", (d: any) => this.calculateNodeRadius(d) + this.nodeRadiusHoverIncrement) // Aggiungi incremento al raggio durante il mouseover
+      .attr("r", (d: any) => this.calculateNodeRadius(d) + this.nodeRadiusHoverIncrement);
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
@@ -269,18 +305,15 @@ export class AppComponent implements OnInit {
     d3.select(event.target)
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", (d: any) => this.calculateNodeRadius(d)); // Ripristina il raggio normale durante il mouseout
+      .attr("r", (d: any) => this.calculateNodeRadius(d));
 
-    const linkedNodes = this.svg.selectAll("line")
-      .filter((linkData: any) => linkData.source === d || linkData.target === d)
-      .data()
-      .flatMap((linkData: any) => [linkData.source, linkData.target]);
+    const linkedNodes = this.getConnectedNodes(d);
 
     this.svg.selectAll("circle")
       .filter((nodeData: any) => linkedNodes.includes(nodeData))
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", (d: any) => this.calculateNodeRadius(d)) // Ripristina il raggio normale durante il mouseout
+      .attr("r", (d: any) => this.calculateNodeRadius(d));
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
@@ -293,8 +326,8 @@ export class AppComponent implements OnInit {
   }
 
   private calculateNodeRadius(node: any): number {
-    const numLinks = this.simulation.force("link").links().filter((link: any) => link.source === node || link.target === node).length;
-    return this.nodeRadiusNormal + numLinks * this.radiusImportanceRadius; // Aumenta il raggio base di 2 per ogni collegamento
+    const connectedLinks = this.linkedLinksMap.get(node) || [];
+    return this.nodeRadiusNormal + connectedLinks.length * this.radiusImportanceRadius;
   }
 
   private resetNodeOpacity(): void {
