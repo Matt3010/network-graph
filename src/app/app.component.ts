@@ -22,40 +22,54 @@ export class AppComponent implements OnInit {
 
   simulation: any = null;
   svg: any;
-  width: number = 0;
-  height: number = 0;
+  width: number = 0; // Larghezza predefinita del grafico
+  height: number = 0; // Altezza predefinita del grafico
   zoomHandler: any;
   zoomTransform: any = d3.zoomIdentity;
-  docsAmount: number = 300;
-  topicAmount: number = 3;
-  nodeRadiusNormal: number = 6;
-  nodeRadiusHover: number = 9;
-  linkStroke: string = "#999";
-  linkStrokeOpacity: number = 0.5;
-  linkStrokeWidth: number = 3;
-  zoomScaleExtent: [number, number] = [0.1, 10];
-  centerForceStrength: number = -15;
-  resizeTransitionDuration: number = 0;
-  resizeForceCenterDuration: number = 200;
+  docsAmount: number = 50; // Numero predefinito di documenti
+  topicAmount: number = 2; // Numero predefinito di argomenti
+  nodeRadiusNormal: number = 10; // Raggio normale dei nodi
+  nodeRadiusHoverIncrement: number = 6; // Incremento del raggio durante il mouseover
+  linkStroke: string = "#b4b4b4"; // Colore predefinito dei link
+  linkStrokeOpacity: number = 0.7; // Opacità predefinita dei link
+  linkStrokeWidth: number = 4; // Larghezza predefinita dei link
+  zoomScaleExtent: [number, number] = [0.1, 2]; // Intervallo di scala predefinito
+  centerForceStrength: number = -(this.docsAmount); // Forza centrale predefinita
+  resizeTransitionDuration: number = 500; // Durata predefinita della transizione durante il ridimensionamento
+  resizeForceCenterDuration: number = 200; // Durata predefinita della transizione durante il recentraggio
+  radiusImportanceRadius: number = 1; // Raggio di importanza per il calcolo del raggio dei nodi
+
+  color = d3.scaleOrdinal(d3.schemeDark2);
+
+  constructor() {}
 
   ngOnInit(): void {
     this.createChart();
     this.handleResize();
+
+    // Aggiungi un listener per il clic sui nodi
+    this.svg.selectAll("circle").on('click', (event: any, d: any) => {
+      this.nodeClicked(event, d);
+      event.stopPropagation(); // Ferma la propagazione del clic per evitare che venga interpretato come clic sul documento
+    });
+
+    // Aggiungi un listener per il clic sul documento
+    document.addEventListener('click', () => {
+      this.resetNodeOpacity();
+    });
   }
 
   createChart(): void {
-    const data = this.generateData(this.docsAmount, this.topicAmount, 0.005);
+    const data = this.generateData(this.docsAmount, this.topicAmount, 0.03);
 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-
-    const color = d3.scaleOrdinal(d3.schemeDark2);
 
     const links = data.links;
     const nodes = data.nodes;
 
     const dragstarted = (event: any, d: any): void => {
-      if (!event.active) this.simulation.alphaTarget(0.1).restart();
+      if (!event.active) this.simulation.alphaTarget(0.05).restart();
       d.fx = d.x;
       d.fy = d.y;
       this.simulation.force("charge", null);
@@ -76,7 +90,7 @@ export class AppComponent implements OnInit {
     this.simulation = d3.forceSimulation(nodes)
       .force("link", d3.forceLink(links).id(d => (d as any).id))
       .force("charge", d3.forceManyBody().strength(this.centerForceStrength))
-      .force("center", d3.forceCenter(this.width, this.height))
+      .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide())
       .on("tick", ticked)
       .restart();
@@ -109,17 +123,14 @@ export class AppComponent implements OnInit {
       .selectAll()
       .data(nodes)
       .join("circle")
-      .attr("r", this.nodeRadiusNormal)
-      .attr("fill", (d: any) => color((d as any).topic))
-      .on("click", (event: any, d: any) => this.nodeClicked(d))
+      .attr("r", (d: any) => this.calculateNodeRadius(d))
+      .attr("fill", (d: any) => this.color((d as any).topic))
+      .on("click", (event: any, d: any) => this.nodeClicked(event, d))
       .on("mouseover", (event: any, d: any) => this.nodeMouseOver(event, d))
       .on("mouseout", (event: any, d: any) => this.nodeMouseOut(event, d))
-      .on("contextmenu", (event: any) => {
-        event.preventDefault();
-        this.handleResize();
-      })
       .attr("style", "cursor: pointer")
-      .call(d3.drag()
+      .style('filter', 'drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.2))')
+  .call(d3.drag()
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", dragended));
@@ -176,7 +187,7 @@ export class AppComponent implements OnInit {
   }
 
   private handleResize(): void {
-    this.width = this.chartContainer.nativeElement.offsetWidth;
+    this.width = window.innerWidth;
     this.height = window.innerHeight;
 
     this.svg.transition().duration(this.resizeTransitionDuration)
@@ -184,7 +195,7 @@ export class AppComponent implements OnInit {
       .attr("viewBox", [0, 0, this.width, this.height]);
 
     if (this.simulation) {
-      this.simulation.force("center", d3.forceCenter(this.width / 2, this.height / 2)).restart().alpha(1);
+      this.simulation.force("center", d3.forceCenter(this.width / 2, this.height / 2)).restart();
     }
   }
 
@@ -193,15 +204,50 @@ export class AppComponent implements OnInit {
     this.svg.selectAll("g").attr("transform", transform);
   }
 
-  private nodeClicked(nodeData: any): void {
+  private nodeClicked(event: any, nodeData: any): void {
     console.log("Clicked Node:", nodeData);
+
+    // Seleziona i nodi primi figli e fratelli diretti del nodo cliccato
+    const connectedNodes = this.svg.selectAll("line")
+      .filter((linkData: any) => linkData.source === nodeData || linkData.target === nodeData)
+      .data()
+      .flatMap((linkData: any) => [linkData.source, linkData.target]);
+
+    // Verifica se il nodo ha collegamenti
+    const hasLinks = connectedNodes.length > 0;
+
+    // Imposta l'opacità dei nodi primi figli e fratelli diretti solo se ci sono collegamenti
+    this.svg.selectAll("circle")
+      .transition()
+      .duration(this.resizeForceCenterDuration)
+      .style("opacity", (d: any) => {
+        if (hasLinks) {
+          return connectedNodes.includes(d) ? 1 : 0.2;
+        } else {
+          // Se il nodo è isolato, non lo opacizziamo
+          return d === nodeData ? 1 : 0.2;
+        }
+      });
+
+    // Imposta l'opacità dei link solo se ci sono collegamenti
+    this.svg.selectAll("line")
+      .transition()
+      .duration(this.resizeForceCenterDuration)
+      .style("opacity", (d: any) => {
+        if (hasLinks) {
+          return (d.source === nodeData || d.target === nodeData) ? 1 : 0.2;
+        } else {
+          // Se il nodo è isolato, non opacizziamo i link
+          return 1;
+        }
+      });
   }
 
   private nodeMouseOver = (event: any, d: any): void => {
     d3.select(event.target)
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", this.nodeRadiusHover);
+      .attr("r", (d: any) => this.calculateNodeRadius(d) + this.nodeRadiusHoverIncrement); // Aggiungi incremento al raggio durante il mouseover
 
     const linkedNodes = this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
@@ -212,8 +258,7 @@ export class AppComponent implements OnInit {
       .filter((nodeData: any) => linkedNodes.includes(nodeData))
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", this.nodeRadiusHover)
-      .style('filter', 'drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.2))');
+      .attr("r", (d: any) => this.calculateNodeRadius(d) + this.nodeRadiusHoverIncrement) // Aggiungi incremento al raggio durante il mouseover
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
@@ -224,7 +269,7 @@ export class AppComponent implements OnInit {
     d3.select(event.target)
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", this.nodeRadiusNormal);
+      .attr("r", (d: any) => this.calculateNodeRadius(d)); // Ripristina il raggio normale durante il mouseout
 
     const linkedNodes = this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
@@ -235,8 +280,7 @@ export class AppComponent implements OnInit {
       .filter((nodeData: any) => linkedNodes.includes(nodeData))
       .transition()
       .duration(this.resizeForceCenterDuration)
-      .attr("r", this.nodeRadiusNormal)
-      .style('filter', 'none');
+      .attr("r", (d: any) => this.calculateNodeRadius(d)) // Ripristina il raggio normale durante il mouseout
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
@@ -247,4 +291,24 @@ export class AppComponent implements OnInit {
     this.svg.transition().duration(this.resizeTransitionDuration).call(this.zoomHandler.transform, d3.zoomIdentity);
     this.simulation.force("center", d3.forceCenter(this.width / 2, this.height / 2)).restart();
   }
+
+  private calculateNodeRadius(node: any): number {
+    const numLinks = this.simulation.force("link").links().filter((link: any) => link.source === node || link.target === node).length;
+    return this.nodeRadiusNormal + numLinks * this.radiusImportanceRadius; // Aumenta il raggio base di 2 per ogni collegamento
+  }
+
+  private resetNodeOpacity(): void {
+    // Imposta l'opacità di tutti i nodi a 1
+    this.svg.selectAll("circle")
+      .transition()
+      .duration(this.resizeForceCenterDuration)
+      .style("opacity", 1);
+
+    // Imposta l'opacità di tutti i link a 1
+    this.svg.selectAll("line")
+      .transition()
+      .duration(this.resizeForceCenterDuration)
+      .style("opacity", 1);
+  }
+
 }
