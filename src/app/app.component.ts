@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   docsAmount: number = 50; // Numero predefinito di documenti
   topicAmount: number = 2; // Numero predefinito di argomenti
   nodeRadiusNormal: number = 10; // Raggio normale dei nodi
-  nodeRadiusHoverIncrement: number = 6; // Incremento del raggio durante il mouseover
+  nodeRadiusHoverIncrement: number = 1.7; // Incremento del raggio durante il mouseover
   linkStroke: string = "#b4b4b4"; // Colore predefinito dei link
   linkStrokeOpacity: number = 0.7; // Opacità predefinita dei link
   linkStrokeWidth: number = 4; // Larghezza predefinita dei link
