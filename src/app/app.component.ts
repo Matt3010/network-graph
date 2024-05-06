@@ -26,17 +26,18 @@ export class AppComponent implements OnInit {
   height: number = 0;
   zoomHandler: any;
   zoomTransform: any = d3.zoomIdentity;
-  docsAmount: number = 300;
+  docsAmount: number = 100;
   topicAmount: number = 3;
-  nodeRadiusNormal: number = 6;
-  nodeRadiusHover: number = 9;
-  linkStroke: string = "#999";
+  nodeRadiusNormal: number = 8;
+  nodeRadiusHover: number = this.nodeRadiusNormal + 5;
+  linkStroke: string = "#545454";
   linkStrokeOpacity: number = 0.5;
   linkStrokeWidth: number = 3;
   zoomScaleExtent: [number, number] = [0.1, 10];
-  centerForceStrength: number = -15;
-  resizeTransitionDuration: number = 0;
+  centerForceStrength: number = -(this.docsAmount);
+  resizeTransitionDuration: number = 500;
   resizeForceCenterDuration: number = 200;
+  gravityStrength : number = 0.1;
 
   ngOnInit(): void {
     this.createChart();
@@ -44,7 +45,7 @@ export class AppComponent implements OnInit {
   }
 
   createChart(): void {
-    const data = this.generateData(this.docsAmount, this.topicAmount, 0.005);
+    const data = this.generateData(this.docsAmount, this.topicAmount, 0.05);
 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
@@ -54,11 +55,12 @@ export class AppComponent implements OnInit {
     const links = data.links;
     const nodes = data.nodes;
 
+    const linksPerNode = this.calculateLinksPerNode(links);
+
     const dragstarted = (event: any, d: any): void => {
       if (!event.active) this.simulation.alphaTarget(0.1).restart();
       d.fx = d.x;
       d.fy = d.y;
-      this.simulation.force("charge", null);
     };
 
     const dragged = (event: any, d: any): void => {
@@ -70,14 +72,14 @@ export class AppComponent implements OnInit {
       if (!event.active) this.simulation.alphaTarget(0);
       d.fx = null;
       d.fy = null;
-      this.simulation.force("charge", d3.forceManyBody().strength(this.centerForceStrength));
     };
 
     this.simulation = d3.forceSimulation(nodes)
       .force("link", d3.forceLink(links).id(d => (d as any).id))
       .force("charge", d3.forceManyBody().strength(this.centerForceStrength))
-      .force("center", d3.forceCenter(this.width, this.height))
+      .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide())
+      .force("gravity", d3.forceRadial(0, this.width / 2, this.height / 2).strength(this.gravityStrength))
       .on("tick", ticked)
       .restart();
 
@@ -109,7 +111,7 @@ export class AppComponent implements OnInit {
       .selectAll()
       .data(nodes)
       .join("circle")
-      .attr("r", this.nodeRadiusNormal)
+      .attr("r", (d: any) => this.calculateNodeRadius(d, linksPerNode))
       .attr("fill", (d: any) => color((d as any).topic))
       .on("click", (event: any, d: any) => this.nodeClicked(d))
       .on("mouseover", (event: any, d: any) => this.nodeMouseOver(event, d))
@@ -133,6 +135,20 @@ export class AppComponent implements OnInit {
       node.attr("cx", (d: any) => (d as any).x)
         .attr("cy", (d: any) => (d as any).y);
     }
+  }
+
+  private calculateLinksPerNode(links: Link[]): Map<string, number> {
+    const linksPerNode = new Map<string, number>();
+    links.forEach(link => {
+      linksPerNode.set(link.source, (linksPerNode.get(link.source) || 0) + 1);
+      linksPerNode.set(link.target, (linksPerNode.get(link.target) || 0) + 1);
+    });
+    return linksPerNode;
+  }
+
+  private calculateNodeRadius(node: Node, linksPerNode: Map<string, number>): number {
+    const numLinks = linksPerNode.get(node.id) || 0;
+    return this.nodeRadiusNormal + numLinks;
   }
 
   generateData(numDocuments: number, numTopics: number, similarityProbability: number) {
