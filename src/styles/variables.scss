@@ -1,0 +1,97 @@
+$default-border-radius: 8px;
+$second-border-radius: 8px;
+$default-border-thickness: 0.5px;
+$default-border-color: #bdbdbd;
+$default-modal-color: #f3f3f3;
+$default-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 12px;
+$default-color: #7dd100;
+$default-font-size-secondary: 14px;
+$default-font-size-primary: 16px;
+
+$secondary-button-size-h: 32px;
+
+$primary-button-color: black;
+$primary-button-size-h: 34px;
+$default-button-background-color-hover: #e8e8e8;
+
+$default-button-border-color: hsl(226deg 13% 83%);
+$default-button-background-color: white;
+
+
+$input-background-color: rgb(255, 255, 255);
+$input-height: 42px;
+$input-border-radius: $default-border-radius;
+$input-border-color: $default-border-radius;
+$input-padding: 10px;
+
+
+$button-social-height: 45px;
+
+.input {
+  &-text {
+    padding: $input-padding;
+    background-color: $input-background-color;
+    height: $input-height;
+    border-radius: $input-border-radius;
+    border: solid $default-border-color $default-border-thickness;
+    font-size: $default-font-size-primary;
+  }
+
+  &-checkbox[type=checkbox] {
+
+    accent-color: $default-color;
+
+
+  }
+
+}
+
+.modal-default {
+  background-color: $default-modal-color;
+  border-radius: $default-border-radius;
+  border: solid $default-border-thickness $default-border-color;
+  box-shadow: $default-box-shadow;
+}
+
+.button {
+  padding: 0 20px 0 20px;
+  border-radius: $second-border-radius;
+  font-weight: 600;
+  font-size: $default-font-size-secondary;
+
+  &-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: $button-social-height;
+    color: black;
+    border: 0;
+    background-color: white;
+    border-radius: $default-border-radius;
+
+    &:hover {
+      transition: background-color 0.2s;
+        background-color: #e7e7e7;
+    }
+  }
+
+
+  &-primary {
+    color: $primary-button-color;
+    height: $primary-button-size-h;
+
+    &-default {
+      background-color: $default-button-background-color;
+      border: 0;
+
+      &:hover {
+        background-color: $default-button-background-color-hover;
+        transition: background-color 0.2s;
+      }
+    }
+  }
+}
+
+
+
