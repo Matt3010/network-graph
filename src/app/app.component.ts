@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
   resizeTransitionDuration: number = 500;
   resizeForceCenterDuration: number = 200;
   gravityStrength : number = 0.05;
+  nodeDistance: number = 10;
 
   ngOnInit(): void {
     this.createChart();
@@ -85,7 +86,7 @@ export class AppComponent implements OnInit {
     };
 
     this.simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink().links(links).id(d => (d as any).id))
+      .force("link", d3.forceLink().links(links).id(d => (d as any).id).distance(this.nodeDistance))
       .force("charge", d3.forceManyBody().strength(this.centerForceStrength))
       .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide())
@@ -122,6 +123,8 @@ export class AppComponent implements OnInit {
       .data(nodes)
       .join("circle")
       .attr("r", (d: any) => this.nodeRadiusNormal)
+      .attr("stroke", "#f5f5f5")
+      .attr("stroke-width", '3')
       .attr("fill", (d: any) => color((d as any).topic))
       .on("click", (event: any, d: any) => this.nodeClicked(d))
       .on("mouseover", (event: any, d: any) => this.nodeMouseOver(event, d))
@@ -160,12 +163,8 @@ export class AppComponent implements OnInit {
 
     for (let i = 0; i < numDocuments; i++) {
       const sourceDocument = "Document " + (i + 1);
-      const sourceTopic = data.nodes[i].topic;
-
       for (let j = i + 1; j < numDocuments; j++) {
         const targetDocument = "Document " + (j + 1);
-        const targetTopic = data.nodes[j].topic;
-
         if (Math.random() < similarityProbability) {
           data.links.push({ source: sourceDocument, target: targetDocument });
         }
@@ -225,6 +224,8 @@ export class AppComponent implements OnInit {
       .transition()
       .duration(this.resizeForceCenterDuration)
       .attr("r", this.nodeRadiusHover)
+      .attr("stroke", "#3b3b3b")
+      .attr("stroke-width", '3')
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
@@ -247,6 +248,8 @@ export class AppComponent implements OnInit {
       .transition()
       .duration(this.resizeForceCenterDuration)
       .attr("r", this.nodeRadiusNormal)
+      .attr("stroke", "#f5f5f5")
+      .attr("stroke-width", '3')
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
