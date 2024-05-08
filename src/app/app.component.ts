@@ -26,25 +26,39 @@ export class AppComponent implements OnInit {
   height: number = 0;
   zoomHandler: any;
   zoomTransform: any = d3.zoomIdentity;
-  docsAmount: number = 300;
+  docsAmount: number = 50;
   topicAmount: number = 3;
+  probability: number = 0.05
   nodeRadiusNormal: number = 6;
-  nodeRadiusHover: number = 9;
-  linkStroke: string = "#999";
+  nodeRadiusHover: number = this.nodeRadiusNormal + 3;
+  linkStroke: string = "#cbcbcb";
   linkStrokeOpacity: number = 0.5;
   linkStrokeWidth: number = 3;
-  zoomScaleExtent: [number, number] = [0.1, 10];
-  centerForceStrength: number = -15;
-  resizeTransitionDuration: number = 0;
+  zoomScaleExtent: [number, number] = [0.1, 2];
+  centerForceStrength: number = -(this.docsAmount);
+  resizeTransitionDuration: number = 500;
   resizeForceCenterDuration: number = 200;
+  gravityStrength : number = 0.05;
+  nodeDistance: number = 10;
 
   ngOnInit(): void {
     this.createChart();
     this.handleResize();
   }
 
+  handleVariableChange(): void {
+    // Prima di ricreare il grafico, rimuovi il grafico esistente se presente
+    if (this.svg) {
+      this.svg.selectAll("*").remove();
+    }
+
+    // Poi ricrea il grafico
+    this.createChart();
+  }
+
+
   createChart(): void {
-    const data = this.generateData(this.docsAmount, this.topicAmount, 0.005);
+    const data = this.generateData(this.docsAmount, this.topicAmount, this.probability);
 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
@@ -58,7 +72,6 @@ export class AppComponent implements OnInit {
       if (!event.active) this.simulation.alphaTarget(0.1).restart();
       d.fx = d.x;
       d.fy = d.y;
-      this.simulation.force("charge", null);
     };
 
     const dragged = (event: any, d: any): void => {
@@ -70,14 +83,14 @@ export class AppComponent implements OnInit {
       if (!event.active) this.simulation.alphaTarget(0);
       d.fx = null;
       d.fy = null;
-      this.simulation.force("charge", d3.forceManyBody().strength(this.centerForceStrength));
     };
 
     this.simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(d => (d as any).id))
+      .force("link", d3.forceLink().links(links).id(d => (d as any).id).distance(this.nodeDistance))
       .force("charge", d3.forceManyBody().strength(this.centerForceStrength))
-      .force("center", d3.forceCenter(this.width, this.height))
+      .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide())
+      .force("gravity", d3.forceRadial(0, this.width / 2, this.height / 2).strength(this.gravityStrength))
       .on("tick", ticked)
       .restart();
 
@@ -109,7 +122,9 @@ export class AppComponent implements OnInit {
       .selectAll()
       .data(nodes)
       .join("circle")
-      .attr("r", this.nodeRadiusNormal)
+      .attr("r", (d: any) => this.nodeRadiusNormal)
+      .attr("stroke", "#f5f5f5")
+      .attr("stroke-width", '3')
       .attr("fill", (d: any) => color((d as any).topic))
       .on("click", (event: any, d: any) => this.nodeClicked(d))
       .on("mouseover", (event: any, d: any) => this.nodeMouseOver(event, d))
@@ -148,14 +163,10 @@ export class AppComponent implements OnInit {
 
     for (let i = 0; i < numDocuments; i++) {
       const sourceDocument = "Document " + (i + 1);
-      const sourceTopic = data.nodes[i].topic;
-
       for (let j = i + 1; j < numDocuments; j++) {
         const targetDocument = "Document " + (j + 1);
-        const targetTopic = data.nodes[j].topic;
-
-        if (Math.random() < similarityProbability && (sourceTopic === targetTopic || Math.random() < 0.5)) {
-          data.links.push({ source: sourceDocument, target: targetDocument, value: 1 });
+        if (Math.random() < similarityProbability) {
+          data.links.push({ source: sourceDocument, target: targetDocument });
         }
       }
     }
@@ -213,11 +224,12 @@ export class AppComponent implements OnInit {
       .transition()
       .duration(this.resizeForceCenterDuration)
       .attr("r", this.nodeRadiusHover)
-      .style('filter', 'drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.2))');
+      .attr("stroke", "#3b3b3b")
+      .attr("stroke-width", '3')
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)
-      .attr("stroke", "black");
+      .attr("stroke", "black")
   }
 
   private nodeMouseOut = (event: any, d: any): void => {
@@ -236,7 +248,8 @@ export class AppComponent implements OnInit {
       .transition()
       .duration(this.resizeForceCenterDuration)
       .attr("r", this.nodeRadiusNormal)
-      .style('filter', 'none');
+      .attr("stroke", "#f5f5f5")
+      .attr("stroke-width", '3')
 
     this.svg.selectAll("line")
       .filter((linkData: any) => linkData.source === d || linkData.target === d)

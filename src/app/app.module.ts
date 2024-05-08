@@ -4,6 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxPanZoomModule} from "ngx-panzoom";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {NgxPanZoomModule} from "ngx-panzoom";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxPanZoomModule
+    NgxPanZoomModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
