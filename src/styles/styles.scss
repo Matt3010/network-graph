@@ -6,4 +6,9 @@
 @import "../../node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 
-
+.pointer {
+  cursor: pointer;
+}
+.denied {
+  cursor: not-allowed;
+}

@@ -1,63 +1,79 @@
-$default-border-radius: 8px;
-$second-border-radius: 8px;
-$default-border-thickness: 0.5px;
-$default-border-color: #bdbdbd;
-$default-modal-color: #f3f3f3;
-$default-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 12px;
-$default-color: #7dd100;
-$default-font-size-secondary: 14px;
-$default-font-size-primary: 16px;
+// Variabili per i bordi
+$border-radius: 8px;
+$border-thickness: 0.5px;
+$border-color: #bdbdbd;
 
-$secondary-button-size-h: 32px;
+// Variabili per i modali
+$modal-color: #f3f3f3;
+$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 12px;
 
+// Variabili per i colori
+$accent-color: #7dd100;
 $primary-button-color: black;
-$primary-button-size-h: 34px;
 $default-button-background-color-hover: #e8e8e8;
-
 $default-button-border-color: hsl(226deg 13% 83%);
 $default-button-background-color: white;
-
-
 $input-background-color: rgb(255, 255, 255);
+$social-button-background-color: white;
+$social-button-color: black;
+$social-button-color-hover: $default-button-background-color-hover;
+
+// Variabili per dimensioni e stili dei componenti
+$font-size-secondary: 14px;
+$font-size-primary: 16px;
+$secondary-button-height: 32px;
+$primary-button-height: 34px;
 $input-height: 42px;
-$input-border-radius: $default-border-radius;
-$input-border-color: $default-border-radius;
+$button-social-height: 45px;
 $input-padding: 10px;
 
+// Input
+$input-border-radius: $border-radius;
+$input-border-color: $border-color;
 
-$button-social-height: 45px;
-
+// Stili dei componenti
 .input {
   &-text {
     padding: $input-padding;
     background-color: $input-background-color;
     height: $input-height;
     border-radius: $input-border-radius;
-    border: solid $default-border-color $default-border-thickness;
-    font-size: $default-font-size-primary;
+    border: solid $border-color $border-thickness;
+    font-size: $font-size-primary;
   }
 
+
   &-checkbox[type=checkbox] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: solid $border-color $border-thickness;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50%;
 
-    accent-color: $default-color;
-
-
+    &:checked {
+      background-color: white;
+      border-color: $accent-color;
+      border-width: 6px; // Increase border width to simulate a checkmark
+    }
   }
 
 }
 
 .modal-default {
-  background-color: $default-modal-color;
-  border-radius: $default-border-radius;
-  border: solid $default-border-thickness $default-border-color;
-  box-shadow: $default-box-shadow;
+  background-color: $modal-color;
+  border-radius: $border-radius;
+  border: solid $border-thickness $border-color;
+  box-shadow: $box-shadow;
 }
 
 .button {
   padding: 0 20px 0 20px;
-  border-radius: $second-border-radius;
+  border-radius: $border-radius;
   font-weight: 600;
-  font-size: $default-font-size-secondary;
+  font-size: $font-size-secondary;
+  border: solid $default-button-border-color $border-thickness;
 
   &-social {
     display: flex;
@@ -65,25 +81,22 @@ $button-social-height: 45px;
     align-items: center;
     gap: 20px;
     height: $button-social-height;
-    color: black;
-    border: 0;
-    background-color: white;
-    border-radius: $default-border-radius;
+    color: $social-button-color;
+    background-color: $social-button-background-color;
+    border-radius: $border-radius;
 
     &:hover {
       transition: background-color 0.2s;
-        background-color: #e7e7e7;
+      background-color: $social-button-color-hover;
     }
   }
 
-
   &-primary {
     color: $primary-button-color;
-    height: $primary-button-size-h;
+    height: $primary-button-height;
 
     &-default {
       background-color: $default-button-background-color;
-      border: 0;
 
       &:hover {
         background-color: $default-button-background-color-hover;
@@ -92,6 +105,3 @@ $button-social-height: 45px;
     }
   }
 }
-
-
-

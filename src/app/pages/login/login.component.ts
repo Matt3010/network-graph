@@ -8,6 +8,8 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
 
+  shouldShowPass: boolean = false;
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -22,5 +24,16 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('network-should-remember-password', JSON.stringify(res));
     })
   }
+
+  togglePassword() {
+    if(this.loginForm!.value!.password!.length > 0)
+    this.shouldShowPass = !this.shouldShowPass;
+  }
+
+  deletePassword() {
+    if(this.loginForm!.value!.password!.length > 0)
+      this.loginForm!.controls.password.setValue('')
+  }
+
 
 }
