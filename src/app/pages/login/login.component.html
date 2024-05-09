@@ -1,5 +1,12 @@
-<div class="z-1 position-relative row vh-100 justify-content-center align-items-center">
-  <div class="modal-default modal-login d-flex flex-column justify-content-center align-items-center">
+<div class="row w-100 m-0 p-0 registration">
+  <div class="col-12 d-flex justify-content-end m-0 p-0">
+      <button class="m-3 button button-secondary button-secondary-info button-secondary-info-box-shadow">Don't have an account? Register here</button>
+  </div>
+</div>
+
+
+<div class="z-1 position-relative row vh-100 m-0 p-0 justify-content-center align-items-center">
+  <div class="modal-default modal-login d-flex flex-column justify-content-center align-items-center ">
 
 
     <div class="d-flex justify-content-center flex-column align-items-center my-3">
@@ -19,7 +26,7 @@
           <div class="col-12 position-relative mb-3">
             <small>Password</small>
             <input id="password" formControlName="password"  class="w-100 input input-text mt-1" [type]="shouldShowPass === true ? 'text' : 'password'">
-            <img *ngIf="loginForm!.value.password != ''" (click)="deletePassword();" class="password_clear pointer"  width="20px" src="assets/network_assets/close.svg" alt="Clear">
+            <img *ngIf="loginForm!.value.password != ''" (click)="deletePassword(); shouldShowPass = false" class="password_clear pointer"  width="20px" src="assets/network_assets/close.svg" alt="Clear">
             <img *ngIf="!shouldShowPass" (click)="togglePassword()" class="hide_show pointer"  width="20px" src="assets/network_assets/closed-eye.svg" alt="hide/show">
             <img *ngIf="shouldShowPass" (click)="togglePassword()" class="hide_show pointer" width="20px" src="assets/network_assets/opened-eye.svg" alt="hide/show">
           </div>
@@ -31,15 +38,12 @@
             <button class="button button-primary button-primary-default w-100 mb-2" type="submit">Login</button>
             <button class="button button-social w-100">
               <img width="24px" src="assets/network_assets/google-ico.svg" alt="google_login_button">
-              Sign in with google
+              Continue with Google
             </button>
           </div>
           </form>
-
         </div>
-
   </div>
 </div>
-
 
 <div class="pattern"></div>

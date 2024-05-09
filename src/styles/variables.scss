@@ -1,106 +1,122 @@
-// Variabili per i bordi
-$border-radius: 8px;
-$border-thickness: 0.5px;
-$border-color: #bdbdbd;
+// Colori
+$white: rgb(255, 255, 255);
+$gray-light: #bdbdbd;
+$green: #7dd100;
+$green-a: rgb(240, 255, 216);
+$green-b: rgb(235, 255, 193);
+$green-c: rgb(164, 243, 2);
+$gray-dark: #f3f3f3;
+$shadow-color: rgba(149, 157, 165, 0.2);
+$shadow-color-a: rgba(217, 217, 217, 0.2);
+$button-hover-color: #e8e8e8;
+$black: black;
 
-// Variabili per i modali
-$modal-color: #f3f3f3;
-$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 12px;
-
-// Variabili per i colori
-$accent-color: #7dd100;
-$primary-button-color: black;
-$default-button-background-color-hover: #e8e8e8;
-$default-button-border-color: hsl(226deg 13% 83%);
-$default-button-background-color: white;
-$input-background-color: rgb(255, 255, 255);
-$social-button-background-color: white;
-$social-button-color: black;
-$social-button-color-hover: $default-button-background-color-hover;
-
-// Variabili per dimensioni e stili dei componenti
-$font-size-secondary: 14px;
-$font-size-primary: 16px;
-$secondary-button-height: 32px;
-$primary-button-height: 34px;
+// Altezza e bordo per gli input
 $input-height: 42px;
-$button-social-height: 45px;
-$input-padding: 10px;
+$input-border-radius: 8px;
+$input-border-width: 0.5px;
+$input-font-size: 16px;
 
-// Input
-$input-border-radius: $border-radius;
-$input-border-color: $border-color;
+// Altezza e bordo per i checkbox
+$checkbox-size: 20px;
+$checkbox-border-radius: 50%;
+$checkbox-checked-border-width: 6px;
 
 // Stili dei componenti
 .input {
   &-text {
-    padding: $input-padding;
-    background-color: $input-background-color;
+    padding: 10px;
+    background-color: $white;
     height: $input-height;
     border-radius: $input-border-radius;
-    border: solid $border-color $border-thickness;
-    font-size: $font-size-primary;
+    border: solid $gray-light $input-border-width;
+    font-size: $input-font-size;
   }
-
 
   &-checkbox[type=checkbox] {
     appearance: none;
-    width: 20px;
-    height: 20px;
-    border: solid $border-color $border-thickness;
-    background-color: white;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    border: solid $gray-light $input-border-width;
+    background-color: $white;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: $checkbox-border-radius;
 
     &:checked {
-      background-color: white;
-      border-color: $accent-color;
-      border-width: 6px; // Increase border width to simulate a checkmark
+      background-color: $white;
+      border-color: $green;
+      border-width: $checkbox-checked-border-width;
     }
   }
-
 }
 
 .modal-default {
-  background-color: $modal-color;
-  border-radius: $border-radius;
-  border: solid $border-thickness $border-color;
-  box-shadow: $box-shadow;
+  background-color: $gray-dark;
+  border-radius: $input-border-radius;
+  border: solid $input-border-width $gray-light;
+  box-shadow: $shadow-color 0px 8px 12px;
 }
 
 .button {
-  padding: 0 20px 0 20px;
-  border-radius: $border-radius;
+  padding: 0 20px;
+  border-radius: $input-border-radius;
   font-weight: 600;
-  font-size: $font-size-secondary;
-  border: solid $default-button-border-color $border-thickness;
+  font-size: 14px;
+  border: solid $gray-light $input-border-width;
 
   &-social {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    height: $button-social-height;
-    color: $social-button-color;
-    background-color: $social-button-background-color;
-    border-radius: $border-radius;
+    height: 45px;
+    color: $black;
+    background-color: $white;
+    border-radius: $input-border-radius;
 
     &:hover {
       transition: background-color 0.2s;
-      background-color: $social-button-color-hover;
+      background-color: $button-hover-color;
     }
   }
 
   &-primary {
-    color: $primary-button-color;
-    height: $primary-button-height;
+    color: $black;
+    height: 34px;
 
     &-default {
-      background-color: $default-button-background-color;
+      background-color: $white;
 
       &:hover {
-        background-color: $default-button-background-color-hover;
+        background-color: $button-hover-color;
         transition: background-color 0.2s;
+      }
+    }
+  }
+
+  &-secondary {
+    color: $black;
+    height: 32px;
+    font-size: 12px;
+
+    &-default {
+      background-color: $white;
+
+      &:hover {
+        background-color: $button-hover-color;
+        transition: background-color 0.2s;
+      }
+    }
+
+    &-info {
+      background-color: $green-a;
+      border: solid $green-c 0.5px;
+      &:hover {
+        background-color: $green-b;
+        transition: background-color 0.2s;
+      }
+      &-box-shadow {
+      box-shadow: $shadow-color-a 0px 8px 12px;
       }
     }
   }
