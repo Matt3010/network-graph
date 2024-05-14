@@ -1,0 +1,18 @@
+.sidebar {
+  min-width: 300px;
+  position: relative;
+}
+
+
+.resizer {
+  position: absolute;
+  background-color: green;
+  height: 100%;
+  width: 3px;
+  right: 0;
+  top: 0;
+
+  &:hover {
+    cursor: col-resize;
+  }
+}

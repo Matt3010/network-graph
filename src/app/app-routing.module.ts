@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./pages/login/login.component";
 import {AppComponent} from "./app.component";
 import {RegistrationComponent} from "./pages/registration/registration.component";
+import {AuthGuard} from "../services/guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -10,7 +11,12 @@ const routes: Routes = [
     pathMatch: "full",
     redirectTo: 'pages/network'
   },
-  {path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
+  {
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module')
+      .then(m => m.PagesModule),
+    canActivate: [AuthGuard],
+  },
   {
     path: 'auth',
     component: AppComponent,

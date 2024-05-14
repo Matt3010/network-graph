@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,11 @@ export class LoginComponent implements OnInit {
 
   rememberPassword = new FormControl(false);
 
+  constructor(
+    private authService: AuthService
+  ) {
+  }
+
   ngOnInit() {
     localStorage.setItem('network-should-remember-password', 'false');
 
@@ -33,6 +39,14 @@ export class LoginComponent implements OnInit {
   deletePassword() {
     if(this.loginForm!.value!.password!.length > 0)
       this.loginForm!.controls.password.setValue('')
+  }
+
+  doLogin() {
+    this.authService.login({
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+      token_name: 'login'
+    });
   }
 
 

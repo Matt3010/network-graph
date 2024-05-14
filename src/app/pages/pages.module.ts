@@ -3,21 +3,27 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
-import {NetworkComponent} from "../../pages/network/network.component";
 import {FormsModule} from "@angular/forms";
 import { RegistrationComponent } from './registration/registration.component';
+import {ToastrModule} from "ngx-toastr";
+import {NetworkComponent} from "./network/network.component";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
     PagesComponent,
-    NetworkComponent,
     RegistrationComponent,
+    NetworkComponent,
+    DashboardComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
-    FormsModule
+    FormsModule,
+    ToastrModule
   ]
 })
 export class PagesModule { }

@@ -4,16 +4,20 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxPanZoomModule} from "ngx-panzoom";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import { LoginComponent } from './pages/login/login.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WipWarningComponent } from './components/wip-warning/wip-warning.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {LoginComponent} from './pages/login/login.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {WipWarningComponent} from './components/wip-warning/wip-warning.component';
+import {ToastrModule} from "ngx-toastr";
+import {AuthInterceptor} from "../services/interceptors/auth.interceptor";
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    WipWarningComponent
+    WipWarningComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,9 +26,13 @@ import { WipWarningComponent } from './components/wip-warning/wip-warning.compon
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,5 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import * as d3 from "d3";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-network',
@@ -29,6 +30,13 @@ export class NetworkComponent implements OnInit {
   resizeForceCenterDuration: number = 200;
   gravityStrength: number = 0.05;
   nodeDistance: number = 10;
+
+  currentUser = this.authService.currentUser$
+
+  constructor(
+    private authService: AuthService
+  ) {
+  }
 
   ngOnInit(): void {
     this.createChart();

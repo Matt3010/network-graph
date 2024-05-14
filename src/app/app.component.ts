@@ -1,16 +1,5 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import * as d3 from 'd3';
-
-interface Node {
-  id: string;
-  topic: number;
-}
-
-interface Link {
-  source: string;
-  target: string;
-  value: number;
-}
+import {Component} from '@angular/core';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-root',

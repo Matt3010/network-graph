@@ -1,0 +1,80 @@
+@import './variables';
+
+/* position */
+
+.toast-top-left {
+  top: 12px;
+  left: 12px;
+}
+
+/* toast styles */
+.toast-title {
+  font-weight: bold;
+  font-size: $input-font-size-medium;
+
+}
+.toast-message {
+  word-wrap: break-word;
+  font-size: $input-font-size-small;
+}
+
+.toast-container {
+  pointer-events: none;
+  position: fixed;
+  z-index: 999999;
+}
+
+.ngx-toastr {
+  position: relative;
+  overflow: hidden;
+  width: auto;
+  min-width: 300px;
+  padding: 10px 20px 10px 20px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  color: black;
+  border-radius: $input-border-radius;
+  border: solid $input-border-width $gray-light;
+  box-shadow: $shadow-color-a 0px 8px 12px;
+  margin: 5px;
+}
+
+.toast-success {
+  background: rgb(241, 255, 236);
+  border: solid rgb(85, 159, 56, 0.3) 0.5px;
+}
+.toast-error {
+  background: rgb(255, 236, 236);
+  border: solid rgba(159, 56, 56, 0.3) 0.5px;
+ }
+.toast-info {
+  background: rgb(236, 251, 255);
+  border: solid rgb(56, 144, 159, 0.3) 0.5px;}
+.toast-warning {
+  background: rgb(255, 247, 236);
+  border: solid rgb(159, 87, 56, 0.3) 0.5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .toast-top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .toast-container {
+    height: 100px;
+    overflow: auto;
+    -webkit-mask-image: -webkit-gradient(linear, center top, center bottom,
+      color-stop(0.50,  rgba(0,0,0,1)),
+      color-stop(1.00,  rgba(0,0,0,0)));
+    mask-image: -webkit-gradient(linear, center top, center bottom,
+      color-stop(0.50,  rgba(0,0,0,1)),
+      color-stop(1.00,  rgba(0,0,0,0)));
+  }
+}
