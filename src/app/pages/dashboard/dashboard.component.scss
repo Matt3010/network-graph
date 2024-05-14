@@ -1,0 +1,12 @@
+@import 'src/styles/variables.scss';
+.row {
+  background-color: #f5f5f5;
+}
+
+.dash-body {
+  background-color: white;
+  box-shadow: $shadow-color 0px 8px 12px;
+  border: solid $gray-light $input-border-width;
+  overflow: hidden;
+  padding: 10px;
+}

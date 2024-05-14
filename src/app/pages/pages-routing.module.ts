@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
-import {NetworkComponent} from "./network/network.component";
+import {NetworkComponent} from "../components/network/network.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "../components/home/home.component";
+import {GettingStartedComponent} from "../components/getting-started/getting-started.component";
 
 const routes: Routes = [
   {
@@ -16,16 +17,25 @@ const routes: Routes = [
         redirectTo: 'dashboard'
       },
       {
-        path: 'network',
-        component: NetworkComponent
-      },
-      {
         path: 'dashboard',
         component: DashboardComponent,
         children: [
           {
             path: 'home',
             component: HomeComponent
+          },
+          {
+            path: 'getting-started',
+            component: GettingStartedComponent
+          },
+          {
+            path: 'network',
+            component: NetworkComponent
+          },
+          {
+            path: '',
+            redirectTo: 'home',
+            pathMatch: 'full'
           }
         ]
       },

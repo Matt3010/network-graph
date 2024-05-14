@@ -1,9 +1,8 @@
- {{currentUser | async | json}}
+
 
 
 <div #chartContainer></div>
 
-<div style="position: relative; z-index: 1000">
 
   <div>
     <label for="docsAmount">Numero di documenti:</label>
@@ -54,4 +53,4 @@
     <label for="gravityStrength">Distanza nodi:</label>
     <input type="range" id="nodeDistance" min="0" max="1000" name="nodeDistance" [(ngModel)]="nodeDistance" (ngModelChange)="handleVariableChange()">
   </div>
-</div>
+

@@ -1,16 +1,17 @@
-.sidebar {
-  min-width: 300px;
-  position: relative;
-}
+@import 'src/styles/variables.scss';
 
+.sidebar {
+  position: relative;
+  border-right: solid $input-border-width $gray-light;
+  background-color: white;
+}
 
 .resizer {
   position: absolute;
-  background-color: green;
   height: 100%;
-  width: 3px;
-  right: 0;
+  width: 7px;
   top: 0;
+  right: -3.5px;
 
   &:hover {
     cursor: col-resize;

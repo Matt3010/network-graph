@@ -11,6 +11,7 @@ import {WipWarningComponent} from './components/wip-warning/wip-warning.componen
 import {ToastrModule} from "ngx-toastr";
 import {AuthInterceptor} from "../services/interceptors/auth.interceptor";
 import { HomeComponent } from './components/home/home.component';
+import { GettingStartedComponent } from './components/getting-started/getting-started.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
     LoginComponent,
     WipWarningComponent,
     HomeComponent,
+    GettingStartedComponent,
   ],
   imports: [
     BrowserModule,

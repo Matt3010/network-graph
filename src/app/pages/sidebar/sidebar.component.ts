@@ -8,27 +8,42 @@ import { Component, HostListener } from '@angular/core';
 export class SidebarComponent {
 
   isMouseDown: boolean = false;
+  sidebarWidth: number;
+  min: number=  50;
+  max: number= 400;
+  defaultWidth: number = 250;
 
-  constructor() { }
+  constructor() {
+    const storedWidth = localStorage.getItem('NTW_sidebar_width');
+    if (storedWidth) {
+      this.sidebarWidth = Math.min(this.max, Math.max(this.min, +storedWidth));
+    } else {
+      localStorage.setItem('NTW_sidebar_width', JSON.stringify(250));
+      this.sidebarWidth = this.defaultWidth;
+    }
+  }
 
-  onMouseDown(event: any) {
-    if (event.target.id === 'target') {
+  onMouseDown(event: MouseEvent) {
+    if ((event.target as HTMLElement).id === 'target') {
       this.isMouseDown = true;
     }
   }
 
   @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: any) {
+  onMouseMove(event: MouseEvent) {
     if (this.isMouseDown) {
-      const mouseX = event.clientX; // Ottieni la posizione X del mouse rispetto al viewport
-      const viewportStartX = window.scrollX; // Ottieni la posizione di inizio viewport X
+      const mouseX = event.clientX;
+      const viewportStartX = window.scrollX;
 
-      const mouseWidthFromViewportStart = mouseX - viewportStartX; // Calcola la larghezza del mouse rispetto all'inizio del viewport
+      const mouseWidthFromViewportStart = mouseX - viewportStartX;
+      const newWidth = Math.min(this.max, Math.max(this.min, mouseWidthFromViewportStart));
 
-      console.log("Larghezza del mouse rispetto all'inizio del viewport: " + mouseWidthFromViewportStart + "px");
+      localStorage.setItem('NTW_sidebar_width', JSON.stringify(newWidth));
+      this.sidebarWidth = newWidth;
     }
   }
 
+  @HostListener('document:mouseup')
   onMouseUp() {
     this.isMouseDown = false;
   }

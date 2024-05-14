@@ -1,4 +1,3 @@
-<div class="w-100 h-100 sidebar">
-  wfaf
-  <div class="resizer" id="target" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp()"></div>
+<div [style.min-width.px]="sidebarWidth" class="w-100 h-100 sidebar">
+  <div class="resizer" id="target" (mousedown)="onMouseDown($event)"></div>
 </div>

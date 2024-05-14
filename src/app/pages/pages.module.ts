@@ -6,7 +6,7 @@ import { PagesComponent } from './pages.component';
 import {FormsModule} from "@angular/forms";
 import { RegistrationComponent } from './registration/registration.component';
 import {ToastrModule} from "ngx-toastr";
-import {NetworkComponent} from "./network/network.component";
+import {NetworkComponent} from "../components/network/network.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
