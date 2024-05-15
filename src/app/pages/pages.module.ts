@@ -8,7 +8,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import {ToastrModule} from "ngx-toastr";
 import {NetworkComponent} from "../components/network/network.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from '../components/sidebar/sidebar.component';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     RegistrationComponent,
     NetworkComponent,
     DashboardComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     CommonModule,

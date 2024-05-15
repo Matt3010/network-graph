@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -6,14 +7,16 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-
   isMouseDown: boolean = false;
   sidebarWidth: number;
   min: number=  50;
   max: number= 400;
   defaultWidth: number = 250;
+  currentUser$ = this.authService.currentUser$
 
-  constructor() {
+  constructor(
+    private authService: AuthService
+  ) {
     const storedWidth = localStorage.getItem('NTW_sidebar_width');
     if (storedWidth) {
       this.sidebarWidth = Math.min(this.max, Math.max(this.min, +storedWidth));

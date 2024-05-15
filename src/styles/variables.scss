@@ -1,15 +1,21 @@
 // Colori
 $white: rgb(255, 255, 255);
 $gray-light: #bdbdbd;
+$gray-light-a: #d0d0d0;
 $green: #7dd100;
 $green-a: rgb(240, 255, 216);
 $green-b: rgb(235, 255, 193);
 $green-c: rgb(164, 243, 2);
+$green-d: rgb(110, 159, 0);
 $gray-dark: #f3f3f3;
 $shadow-color: rgba(149, 157, 165, 0.2);
 $shadow-color-a: rgba(217, 217, 217, 0.2);
 $button-hover-color: #e8e8e8;
 $black: black;
+
+// Select
+$select-border-radius: 14px;
+$select-border-click-color: rgba(245, 245, 245, 0.26);
 
 // Altezza e bordo per gli input
 $input-height: 42px;

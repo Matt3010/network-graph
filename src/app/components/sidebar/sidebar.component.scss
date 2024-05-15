@@ -1,4 +1,4 @@
-@import 'src/styles/variables.scss';
+@import '../../../styles/variables';
 
 .sidebar {
   position: relative;
@@ -16,4 +16,11 @@
   &:hover {
     cursor: col-resize;
   }
+
+  &:active {
+    border-right: solid #63b2ff 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }
+

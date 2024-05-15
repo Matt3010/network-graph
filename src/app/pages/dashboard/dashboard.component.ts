@@ -12,18 +12,15 @@ export class DashboardComponent implements OnInit {
   debouncedResizeHandler: () => void;
 
   constructor() {
-    // Inizializza il gestore di ridimensionamento debounce con un timeout di 300 ms
     this.debouncedResizeHandler = debounce(this.getRouterWidth.bind(this), 300);
   }
 
   ngOnInit() {
-    // Chiama la funzione per ottenere la larghezza del router-outlet una volta che la vista è stata completamente inizializzata
     this.getRouterWidth();
   }
 
   @HostListener('window:resize')
   onResize() {
-    // Chiama il gestore di ridimensionamento debounce
     this.debouncedResizeHandler();
   }
 
