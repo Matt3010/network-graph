@@ -1,10 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { PagesComponent } from './pages.component';
-import {NetworkComponent} from "../components/network/network.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {HomeComponent} from "../components/home/home.component";
-import {GettingStartedComponent} from "../components/getting-started/getting-started.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {PagesComponent} from './pages.component';
+import {NotesComponent} from "./notes/notes.component";
+import {EditComponent} from "./notes/edit/edit/edit.component";
 
 const routes: Routes = [
   {
@@ -14,28 +12,18 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: "full",
-        redirectTo: 'dashboard'
+        redirectTo: 'home'
       },
       {
-        path: 'dashboard',
-        component: DashboardComponent,
+        path: 'notes',
         children: [
           {
-            path: 'home',
-            component: HomeComponent
-          },
-          {
-            path: 'getting-started',
-            component: GettingStartedComponent
-          },
-          {
-            path: 'network',
-            component: NetworkComponent
-          },
-          {
             path: '',
-            redirectTo: 'home',
-            pathMatch: 'full'
+            component: NotesComponent
+          },
+          {
+            path: 'edit/:id',
+            component: EditComponent
           }
         ]
       },

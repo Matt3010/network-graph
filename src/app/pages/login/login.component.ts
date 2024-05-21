@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
+import {SocialAuthService} from "@abacritt/angularx-social-login";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   rememberPassword = new FormControl(false);
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private socialAuthService: SocialAuthService
   ) {
   }
 
@@ -29,6 +31,19 @@ export class LoginComponent implements OnInit {
     this.rememberPassword.valueChanges.subscribe((res) => {
       localStorage.setItem('network-should-remember-password', JSON.stringify(res));
     })
+    this.listenForGoogleLogin()
+  }
+
+
+  listenForGoogleLogin() {
+    this.socialAuthService.authState.subscribe((user) => {
+      console.log(user)
+        this.authService.login({
+          email: user.email,
+          password: user.provider,
+          token_name: 'google_login'
+        })
+    });
   }
 
   togglePassword() {

@@ -1,21 +1,14 @@
-# Fase di build
-FROM node:latest as builder
-
-WORKDIR /app
-
+# Stage 1
+FROM node:lts-alpine as node
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
 COPY . .
+RUN npm run build
 
-# Installazione delle dipendenze e build dell'applicazione
-RUN npm install && npm run build
-
-# Fase di produzione
-FROM nginx:latest
-
-# Copia dei file statici dell'applicazione nella directory di default di NGINX
-COPY --from=builder /app/dist/* /usr/share/nginx/html/
-
-# Esposizione della porta 80
-EXPOSE 80
-
-# Comando per avviare NGINX quando il container viene eseguito
+FROM nginx:1.19.2-alpine
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=node /usr/src/app/dist /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]

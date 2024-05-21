@@ -1,0 +1,23 @@
+.new_fast_note {
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  background-color: rgb(255, 236, 236);
+  padding: 10px;
+  border-radius: 50%;
+
+  &:hover {
+    animation: shake 0.2s linear;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+
+@keyframes shake {
+  from {
+    transform: rotate(0);
+  } to {
+    transform: rotate(10deg);
+  }
+}

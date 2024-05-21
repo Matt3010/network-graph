@@ -1,29 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { PagesRoutingModule } from './pages-routing.module';
-import { PagesComponent } from './pages.component';
-import {FormsModule} from "@angular/forms";
-import { RegistrationComponent } from './registration/registration.component';
+import {PagesRoutingModule} from './pages-routing.module';
+import {PagesComponent} from './pages.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ToastrModule} from "ngx-toastr";
-import {NetworkComponent} from "../components/network/network.component";
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SidebarComponent } from '../components/sidebar/sidebar.component';
+import {NavbarComponent} from "../components/navbar/navbar.component";
+import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.component";
+import {LogoComponent} from "../components/logo/logo.component";
+import {NotesComponent} from "./notes/notes.component";
+import {EditComponent} from './notes/edit/edit/edit.component';
 
 
 @NgModule({
   declarations: [
     PagesComponent,
-    RegistrationComponent,
-    NetworkComponent,
-    DashboardComponent,
-    SidebarComponent,
+    NotesComponent,
+    NavbarComponent,
+    UserDropdownComponent,
+    LogoComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     FormsModule,
-    ToastrModule
+    ToastrModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
-export class PagesModule { }
+export class PagesModule {
+}

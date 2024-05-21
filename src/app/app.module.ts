@@ -7,34 +7,53 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginComponent} from './pages/login/login.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {WipWarningComponent} from './components/wip-warning/wip-warning.component';
 import {ToastrModule} from "ngx-toastr";
 import {AuthInterceptor} from "../services/interceptors/auth.interceptor";
-import { HomeComponent } from './components/home/home.component';
-import { GettingStartedComponent } from './components/getting-started/getting-started.component';
+import {
+  GoogleLoginProvider,
+  GoogleSigninButtonModule,
+  SocialAuthServiceConfig,
+  SocialLoginModule
+} from '@abacritt/angularx-social-login';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    WipWarningComponent,
-    HomeComponent,
-    GettingStartedComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgxPanZoomModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-  ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgxPanZoomModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        SocialLoginModule,
+        GoogleSigninButtonModule
+    ],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(
+                            '692071661141-94h5cqooal7ggcmsub5t346itmfjcji2.apps.googleusercontent.com'
+                        )
+                    },
+                ],
+                onError: (err) => {
+                    console.error(err);
+                }
+            } as SocialAuthServiceConfig,
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

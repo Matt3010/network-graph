@@ -12,7 +12,8 @@ export interface User {
   email: string
   email_verified_at: any
   created_at: string
-  updated_at: string
+  updated_at: string,
+  image_path: string
 }
 
 
@@ -53,6 +54,10 @@ export class AuthService {
           this.toastrService.error('Invalid credentials...', 'Error', {
             positionClass: 'toast-top-left',
           })
+        } else if (err.status === 404 ) {
+          this.toastrService.error('Email not found! You must register before.', 'Error', {
+            positionClass: 'toast-top-left',
+          })
         }
       })
   }
@@ -70,7 +75,7 @@ export class AuthService {
   handleLoginSuccess(res: any) {
     this.tokenService.setToken(res.token);
     this.currentUser$.next(res.user);
-    this.router.navigateByUrl('/pages/dashboard')
+    this.router.navigateByUrl('/pages/home')
   }
 
   logout() {

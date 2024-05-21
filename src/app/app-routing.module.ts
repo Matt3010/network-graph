@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: "full",
-    redirectTo: 'pages/network'
+    redirectTo: 'pages/notes'
   },
   {
     path: 'pages',

@@ -14,5 +14,11 @@
   cursor: not-allowed;
 }
 
+.rotate-90-right {
+  transform: rotate(-90deg);
+}
 
-
+.row, .col {
+  margin: 0;
+  padding: 0;
+}

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {NoteService} from "../../services/note.service";
 
 @Component({
   selector: 'app-pages',
@@ -6,4 +7,14 @@ import {Component} from '@angular/core';
   styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent {
+
+  constructor(
+    private noteService: NoteService,
+  ) {
+  }
+
+  createNewNote() {
+    this.noteService.createNewNote()
+  }
+
 }

@@ -1,0 +1,13 @@
+.operation {
+  padding: 10px;
+
+  &:hover {
+    background-color: #dadada;
+    border-radius: 4px;
+    opacity: 1 !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+
+}

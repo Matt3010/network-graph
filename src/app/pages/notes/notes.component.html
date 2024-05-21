@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+  <div *ngIf="myGroupedNotes" class="groupedNotesContainer">
+    <div *ngFor="let group of myGroupedNotes">
+      <div class="row align-items-end">
+        <div class="col">
+        <span class="fw-bold group-letter">
+          {{group.group.letter}}
+        </span>
+        </div>
+        <div class="col-auto">
+        <span class="fw-bold group-qty">
+          {{group.group.qty}}
+        </span>
+        </div>
+      </div>
+      <hr class="p-0 m-0 mb-1">
+      <div *ngFor="let note of group.children">
+        <a [href]="'pages/notes/edit/' + note.id">
+          <div class="row note">
+            <div class="col p-0">
+          <span class="note-title">
+            {{note.title}}
+          </span>
+            </div>
+            <div class="col-auto">
+           <span class="note-time">
+            {{note.updated_at | date: 'dd/MM/yyyy, HH:mm:ss'}}
+          </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
