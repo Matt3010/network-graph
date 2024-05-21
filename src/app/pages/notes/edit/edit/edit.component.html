@@ -1,6 +1,11 @@
-<form [formGroup]="editForm" class="form mx-5">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 
 
 
+
+<form [formGroup]="editForm" class="form position-relative h-100 w-100">
+
+  <p-editor class="position-relative" [style.width]="'100%'" formControlName="body" [style]="{ 'height': window.innerHeight -145+ 'px', width: '100%', position: 'relative' }"></p-editor>
 
 </form>
+

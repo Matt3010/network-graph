@@ -12,6 +12,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class EditComponent {
 
   note: Note | undefined;
+  text: any;
+  window = window
 
   editForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -26,6 +28,10 @@ export class EditComponent {
     private activatedRoute: ActivatedRoute
   ) {
     this.getNote();
+
+    this.editForm.valueChanges.subscribe((res: any) => {
+      console.log(res)
+    })
   }
 
   getNote() {

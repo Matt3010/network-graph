@@ -10,7 +10,7 @@ import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.c
 import {LogoComponent} from "../components/logo/logo.component";
 import {NotesComponent} from "./notes/notes.component";
 import {EditComponent} from './notes/edit/edit/edit.component';
-
+import { EditorModule } from 'primeng/editor';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import {EditComponent} from './notes/edit/edit/edit.component';
     FormsModule,
     ToastrModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    EditorModule
   ]
 })
 export class PagesModule {
