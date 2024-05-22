@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, debounce, debounceTime, map} from "rxjs";
+import {BehaviorSubject, debounceTime, map, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
 import {TokenService} from "./token.service";
@@ -11,7 +11,7 @@ export interface Note {
   id: string
   title: string
   body: string
-  created_by: number
+  created_by: string
   created_at: string
   updated_at: string
 }
@@ -49,7 +49,7 @@ export class NoteService {
   }
 
   getMyNotes() {
-    this.http.get<any>(this.apiUrl+ '/all')
+    this.http.get<any>(this.apiUrl + '/all')
       .pipe(
         map((res) => res.data)
       )
@@ -57,5 +57,11 @@ export class NoteService {
         this.myNotes$.next(notes);
       });
   }
+
+  saveNote(noteUpdated: Note) {
+   return this.http.patch<string>(this.apiUrl + '/' + noteUpdated.id, noteUpdated)
+  }
+
+
 
 }

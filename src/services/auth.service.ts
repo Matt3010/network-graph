@@ -75,7 +75,7 @@ export class AuthService {
   handleLoginSuccess(res: any) {
     this.tokenService.setToken(res.token);
     this.currentUser$.next(res.user);
-    this.router.navigateByUrl('/pages/home')
+    this.router.navigateByUrl('/pages/notes')
   }
 
   logout() {

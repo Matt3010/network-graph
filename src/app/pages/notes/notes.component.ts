@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {Note, NoteService} from "../../../services/note.service";
+import {groupBy} from'lodash';
 
 export interface GroupedNotes {
   group: {
-    letter: string,
-    qty: number
+    letter: string; // Assuming 'letter' is the first letter of the title
+    qty: number;
   };
   children: Note[];
 }
@@ -14,32 +15,22 @@ export interface GroupedNotes {
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent {
+export class NotesComponent implements AfterViewInit{
 
   myGroupedNotes: GroupedNotes[] = [];
   myNotes$ = this.noteService.myNotes$
 
+  constructor(private noteService: NoteService) {
+  }
 
-  constructor(private noteService: NoteService) {}
-
-  ngOnInit() {
+  ngAfterViewInit() {
     this.noteService.myNotes$.subscribe((res: Note[]) => {
-
-      res.sort((a, b) => a.title.localeCompare(b.title));
-
-      let i = 0;
-      const grouped = res.reduce((acc: { [key: string]: GroupedNotes }, note) => {
-        const group = note.title[0].toUpperCase();
-        if (!acc[group]) {
-          acc[group] = { group: {letter: group, qty: 1}, children: [note] }; // Initialize quantity to 1
-        } else {
-          acc[group].children.push(note);
-          acc[group].group.qty++; // Increment quantity
-        }
-        return acc;
-      }, {});
-
-      this.myGroupedNotes = Object.values(grouped);
+      const groupedNotes = groupBy(res, (note: Note) =>
+        note.title.charAt(0).toLowerCase());
+      this.myGroupedNotes = Object.keys(groupedNotes).map((key) => ({
+        group: { letter: key, qty: groupedNotes[key].length },
+        children: groupedNotes[key],
+      }));
     });
   }
 }

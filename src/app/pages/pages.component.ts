@@ -11,6 +11,7 @@ export class PagesComponent {
   constructor(
     private noteService: NoteService,
   ) {
+    localStorage.setItem('network-locked', 'false');
   }
 
   createNewNote() {
