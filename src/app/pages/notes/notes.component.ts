@@ -3,7 +3,7 @@ import {Note, NoteService} from "../../../services/note.service";
 
 export interface GroupedNotes {
   group: {
-    letter: string; // Assuming 'letter' is the first letter of the title
+    letter: string;
     qty: number;
   };
   children: Note[];

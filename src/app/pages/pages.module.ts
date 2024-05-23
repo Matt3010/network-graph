@@ -15,6 +15,7 @@ import {LogoComponent} from "../components/logo/logo.component";
 import {PagesComponent} from "./pages.component";
 import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.component";
 import {NotesPreviewComponent} from "../components/previews/notes-preview/notes-preview.component";
+import {SortPipe} from "../pipes/sort.pipe";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {NotesPreviewComponent} from "../components/previews/notes-preview/notes-
     GobackComponent,
     CreateBlankEntityComponent,
     NotesPreviewComponent,
+    SortPipe
   ],
   imports: [
     CommonModule,

@@ -25,4 +25,8 @@ export class NotesPreviewComponent implements OnInit{
     this.router.navigateByUrl('pages/notes/edit/'+ this.note.id)
   }
 
+  openDropDown() {
+    console.log('ciao')
+  }
+
 }

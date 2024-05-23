@@ -1,7 +1,35 @@
 ::ng-deep {
-  .ql-editor.ql-blank::before {
-    padding-left: 40px !important;
-    font-style: normal !important;
+
+  @media only screen and (max-width: 600px) {
+    .ql-editor {
+      padding: 40px 5vw !important;
+    }
+
+    .ql-editor.ql-blank::before {
+      padding: 0px 2vw !important;
+      font-style: normal !important;
+    }
+
+  }
+
+  @media only screen and (min-width: 601px) and (max-width: 1100px) {
+    .ql-editor {
+      padding: 40px 10vw !important;
+    }
+    .ql-editor.ql-blank::before {
+      padding: 0px 8vw !important;
+      font-style: normal !important;
+    }
+  }
+  @media only screen and (min-width: 1101px) {
+    .ql-editor {
+      padding: 40px 25vw !important;
+    }
+
+    .ql-editor.ql-blank::before {
+      padding: 0px 24.4vw !important;
+      font-style: normal !important;
+    }
   }
 
   .ql-toolbar.ql-snow {

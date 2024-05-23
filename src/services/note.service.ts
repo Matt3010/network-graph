@@ -38,7 +38,6 @@ export class NoteService {
     this.http.get<{ data: Note }>(this.apiUrl)
       .pipe(
         map((res) => res.data),
-        debounceTime(1500)
       )
       .subscribe((newNote: Note) => {
         const currentNotes = this.myNotes$.value;
@@ -59,7 +58,27 @@ export class NoteService {
   }
 
   saveNote(noteUpdated: Note) {
-   return this.http.patch<string>(this.apiUrl + '/' + noteUpdated.id, noteUpdated)
+    return this.http.patch<string>(this.apiUrl + '/' + noteUpdated.id, noteUpdated).pipe(
+      tap((res: string) => {
+        if (res === 'saved') {
+
+          const current = this.myNotes$.value;
+          const index = current.findIndex((i)=> i.id === noteUpdated.id)
+          if(index !== -1) {
+            this.myNotes$.value[index] = noteUpdated
+            this.myNotes$.next([...this.myNotes$.value])
+          }
+        }
+      })
+    )
+  }
+
+
+  find(id: string) {
+    return this.http.get<Note>(this.apiUrl + '/' + id)
+      .pipe(
+        map((res: any) => res.data)
+      )
   }
 
 

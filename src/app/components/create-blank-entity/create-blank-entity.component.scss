@@ -1,9 +1,14 @@
 .blank-container {
   background-color: #f3f3f3;
-  width: 210px;
+  width: 190px;
   height: 100px;
   border-radius: 10px;
   position: relative; /* Aggiunta */
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 }
 
 .add {
