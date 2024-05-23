@@ -1,6 +1,8 @@
 <div class="lock-unlock">
-  <img *ngIf="isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/unlock-alt-svgrepo-com.svg" alt="lock">
-  <img *ngIf="!isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/lock-alt-svgrepo-com.svg" alt="lock">
+  <img *ngIf="isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/unlock-alt-svgrepo-com.svg"
+       alt="lock">
+  <img *ngIf="!isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/lock-alt-svgrepo-com.svg"
+       alt="lock">
 </div>
 
 
@@ -10,15 +12,19 @@
 
 <form [formGroup]="editForm" class="form position-relative h-100 w-100">
 
-  <div  *ngIf='isLock' class="row title">
+  <div *ngIf='isLock' class="row title">
     <div class="col-12 center-mobile">
-      <input class="title-input text-truncate d-inline-block" style="max-width: 100%" type="text" formControlName="title">
+      <input class="title-input text-truncate d-inline-block" style="max-width: 100%" type="text"
+             formControlName="title">
     </div>
   </div>
 
-  <ckeditor [editor]="Editor" [config]="editorConfig" formControlName="body"></ckeditor>
-
-
+  <p-editor
+    [placeholder]="'New note...'"
+    class="position-relative p-editor"
+    [style.width]="'100%'"
+    formControlName="body"
+    [style]="{ 'height': window.innerHeight -105+ 'px', width: '100%', position: 'relative', 'padding': '40px', 'font-size': '16px', 'background-color': '#f2f2f2' }"></p-editor>
 </form>
 
 <app-statistics [statistics]="statistics"></app-statistics>

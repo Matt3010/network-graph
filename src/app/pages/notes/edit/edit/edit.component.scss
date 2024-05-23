@@ -37,11 +37,15 @@
 
 .lock-unlock {
   position: fixed;
-  top: 30px;
+  top: 27px;
   z-index: 20;
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+
+  &:hover {
+    fill: blue !important;
+  }
 }
 
 

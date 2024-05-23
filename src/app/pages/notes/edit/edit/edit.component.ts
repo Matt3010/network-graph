@@ -1,12 +1,9 @@
 import {Component, HostListener, OnDestroy} from '@angular/core';
 import {Note, NoteService} from '../../../../../services/note.service';
 import {ActivatedRoute} from '@angular/router';
-import {combineLatest, tap} from 'rxjs';
+import {combineLatest} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToastrService} from "ngx-toastr";
 import {debounceTime} from 'rxjs/operators';
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import {CodeBlock} from "@ckeditor/ckeditor5-code-block";
 
 export interface FormStatistics {
   Chars: number,
@@ -31,20 +28,6 @@ export class EditComponent implements OnDestroy {
     Paragraphs: 0
   }
   isLock: boolean = false;
-
-  public Editor = ClassicEditor;
-  public editorConfig = {
-    plugins: [ CodeBlock, /* altri plugin */ ],
-    toolbar: [ 'codeBlock', /* altri strumenti della toolbar */ ],
-    codeBlock: {
-      languages: [
-        { language: 'plaintext', label: 'Plain text' }, // default
-        { language: 'javascript', label: 'JavaScript' },
-        { language: 'typescript', label: 'TypeScript' },
-        // Aggiungi altri linguaggi che desideri supportare
-      ]
-    }
-  };
 
   editForm = new FormGroup({
     title: new FormControl('', Validators.required),
