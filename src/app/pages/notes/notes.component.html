@@ -16,7 +16,7 @@
 
 
   <div class="row my-5 flex-wrap justify-content-center w-100">
-    <div *ngFor="let note of myNotes$ | async" class="col-auto m-3 p-0">
+    <div *ngFor="let note of myNotes$ | async" class="col-auto m-2 p-0">
       <app-notes-preview [note]="note"></app-notes-preview>
     </div>
   </div>
