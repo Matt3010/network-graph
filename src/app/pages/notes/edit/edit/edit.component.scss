@@ -43,3 +43,12 @@
   transform: translate(-50%, -50%);
   cursor: pointer;
 }
+
+
+::ng-deep {
+  ckeditor {
+    height: 100% !important;
+  }
+
+}
+

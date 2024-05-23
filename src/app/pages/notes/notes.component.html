@@ -1,35 +1,5 @@
-<div class="row justify-content-center" style="padding-bottom: 300px; padding-top: 80px">
-  <div *ngIf="myGroupedNotes" class="groupedNotesContainer">
-    <div *ngFor="let group of myGroupedNotes">
-      <div class="row align-items-end position-sticky header-group">
-        <div class="col">
-        <span class="fw-bold group-letter">
-          {{group.group.letter | titlecase}}
-        </span>
-        </div>
-        <div class="col-auto">
-        <span class="fw-bold group-qty">
-          {{group.group.qty}}
-        </span>
-        </div>
-        <hr class="p-0 m-0 mb-1">
-      </div>
-      <div *ngFor="let note of group.children">
-        <a [href]="'pages/notes/edit/' + note.id">
-          <div class="row note">
-            <div class="col p-0">
-          <span class="note-title">
-            {{note.title}}
-          </span>
-            </div>
-            <div class="col-auto">
-           <span class="note-time">
-            {{note.updated_at | date: 'dd/MM/yyyy, HH:mm:ss'}}
-          </span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
+<div class="row justify-content-center m-3">
+  <div class="col-auto">
+      <app-create-blank-entity [asset_img]="'assets/network_assets/google_docs.png'"></app-create-blank-entity>
   </div>
 </div>

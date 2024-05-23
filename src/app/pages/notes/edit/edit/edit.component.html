@@ -1,10 +1,10 @@
 <div class="lock-unlock">
-  <img *ngIf="isLock" (click)="toggleLock()" width="30px" src="assets/network_assets/unlock-alt-svgrepo-com.svg" alt="lock">
-  <img *ngIf="!isLock" (click)="toggleLock()" width="30px" src="assets/network_assets/lock-alt-svgrepo-com.svg" alt="lock">
+  <img *ngIf="isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/unlock-alt-svgrepo-com.svg" alt="lock">
+  <img *ngIf="!isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/lock-alt-svgrepo-com.svg" alt="lock">
 </div>
 
 
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/quill@1/dist/quill.snow.css" rel="stylesheet"/>
 
 <app-goback *ngIf="isLock"></app-goback>
 
@@ -16,12 +16,9 @@
     </div>
   </div>
 
-  <p-editor
-    [placeholder]="'New note...'"
-    class="position-relative p-editor"
-    [style.width]="'100%'"
-    formControlName="body"
-    [style]="{ 'height': window.innerHeight -105+ 'px', width: '100%', position: 'relative', 'padding': '40px', 'font-size': '20px', 'background-color': '#f2f2f2' }"></p-editor>
+  <ckeditor [editor]="Editor" [config]="editorConfig" formControlName="body"></ckeditor>
+
+
 </form>
 
 <app-statistics [statistics]="statistics"></app-statistics>

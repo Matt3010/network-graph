@@ -15,22 +15,8 @@ export interface GroupedNotes {
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent implements AfterViewInit{
+export class NotesComponent {
 
-  myGroupedNotes: GroupedNotes[] = [];
   myNotes$ = this.noteService.myNotes$
-
-  constructor(private noteService: NoteService) {
-  }
-
-  ngAfterViewInit() {
-    this.noteService.myNotes$.subscribe((res: Note[]) => {
-      const groupedNotes = groupBy(res, (note: Note) =>
-        note.title.charAt(0).toLowerCase());
-      this.myGroupedNotes = Object.keys(groupedNotes).map((key) => ({
-        group: { letter: key, qty: groupedNotes[key].length },
-        children: groupedNotes[key],
-      }));
-    });
-  }
+  constructor(private noteService: NoteService) {}
 }

@@ -1,0 +1,19 @@
+.blank-container {
+  background-color: #f3f3f3;
+  width: 210px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+
+.add {
+  filter: opacity(0.5);
+  position: relative;
+  top: -4px;
+  right: -2px;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: #927bd7;
+  }
+}

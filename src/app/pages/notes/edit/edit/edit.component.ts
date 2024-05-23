@@ -5,6 +5,8 @@ import {combineLatest, tap} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 import {debounceTime} from 'rxjs/operators';
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {CodeBlock} from "@ckeditor/ckeditor5-code-block";
 
 export interface FormStatistics {
   Chars: number,
@@ -30,6 +32,20 @@ export class EditComponent implements OnDestroy {
   }
   isLock: boolean = false;
 
+  public Editor = ClassicEditor;
+  public editorConfig = {
+    plugins: [ CodeBlock, /* altri plugin */ ],
+    toolbar: [ 'codeBlock', /* altri strumenti della toolbar */ ],
+    codeBlock: {
+      languages: [
+        { language: 'plaintext', label: 'Plain text' }, // default
+        { language: 'javascript', label: 'JavaScript' },
+        { language: 'typescript', label: 'TypeScript' },
+        // Aggiungi altri linguaggi che desideri supportare
+      ]
+    }
+  };
+
   editForm = new FormGroup({
     title: new FormControl('', Validators.required),
     body: new FormControl(''),
@@ -42,8 +58,7 @@ export class EditComponent implements OnDestroy {
     private noteService: NoteService,
     private activatedRoute: ActivatedRoute,
   ) {
-
-    this.initializeLock()
+    this.initializeLock();
 
     this.editForm.reset();
     this.getNote();
@@ -84,6 +99,7 @@ export class EditComponent implements OnDestroy {
 
   toggleLock() {
     this.isLock = !this.isLock;
+    localStorage.setItem('network-locked', JSON.stringify(this.isLock));
   }
 
   initForm(noteData: Note) {
