@@ -1,7 +1,7 @@
-<div class="lock-unlock">
-  <img *ngIf="isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/unlock-alt-svgrepo-com.svg"
+<div class="lock-unlock" (click)="toggleLock()">
+  <img *ngIf="isLock" width="20px" src="assets/network_assets/unlock-alt-svgrepo-com.svg"
        alt="lock">
-  <img *ngIf="!isLock" (click)="toggleLock()" width="20px" src="assets/network_assets/lock-alt-svgrepo-com.svg"
+  <img *ngIf="!isLock" width="20px" src="assets/network_assets/lock-alt-svgrepo-com.svg"
        alt="lock">
 </div>
 

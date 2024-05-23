@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-create-blank-entity',
@@ -8,7 +8,10 @@ import {Component, Input} from '@angular/core';
 export class CreateBlankEntityComponent {
 
   @Input() asset_img: string = '';
-  @Input() entity: string = 'New entity';
+  @Input() entity: string = 'entity';
+  @Output() emitEntityCreation = new EventEmitter<void>();
 
-
+  emit() {
+    this.emitEntityCreation.emit();
+  }
 }

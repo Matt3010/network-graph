@@ -1,0 +1,22 @@
+<div class="card position-relative" (click)="goTo()">
+  <div class="preview m-0 p-0">
+    <div class="content" [innerHtml]="content"></div>
+  </div>
+
+  <div class="footer position-absolute d-flex align-items-center justify-content-between p-4">
+    <div class="col-auto m-0 p-0 d-flex flex-column">
+      <span class="title">
+        {{note.title}}
+      </span>
+      <span class="date">
+        {{note.created_at | date}}
+      </span>
+    </div>
+
+    <div class="me-3 dot-group col-auto m-0 p-0 d-flex flex-column justify-content-center align-items-center" style="gap: 4px;">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</div>

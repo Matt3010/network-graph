@@ -1,4 +1,3 @@
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {StatisticsComponent} from "../components/statistics/statistics.component";
 import {NotifyComponent} from "../components/notify/notify.component";
 import {NotesComponent} from "./notes/notes.component";
@@ -15,6 +14,7 @@ import {EditComponent} from "./notes/edit/edit/edit.component";
 import {LogoComponent} from "../components/logo/logo.component";
 import {PagesComponent} from "./pages.component";
 import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.component";
+import {NotesPreviewComponent} from "../components/previews/notes-preview/notes-preview.component";
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.c
     StatisticsComponent,
     NotifyComponent,
     GobackComponent,
-    CreateBlankEntityComponent
+    CreateBlankEntityComponent,
+    NotesPreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +39,6 @@ import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.c
     ReactiveFormsModule,
     FormsModule,
     EditorModule,
-    CKEditorModule
   ]
 })
 export class PagesModule {

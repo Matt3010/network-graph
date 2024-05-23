@@ -1,5 +1,27 @@
-<div class="row justify-content-center m-3">
-  <div class="col-auto">
-      <app-create-blank-entity [asset_img]="'assets/network_assets/google_docs.png'"></app-create-blank-entity>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-auto m-0 p-0">
+      <span class="fs-2 fw-medium proj-files">Project files</span>
+    </div>
   </div>
+
+  <div class="row justify-content-start overflow-x-auto flex-nowrap pt-5 pb-2">
+    <div class="col-auto m-0 p-0">
+      <app-create-blank-entity (emitEntityCreation)="createNewNote()"
+                               [asset_img]="'assets/network_assets/google_docs.png'"
+                               [entity]="'note'"></app-create-blank-entity>
+
+    </div>
+  </div>
+
+
+  <div class="row my-5 flex-wrap justify-content-center w-100">
+    <div *ngFor="let note of myNotes$ | async" class="col-auto m-3 p-0">
+      <app-notes-preview [note]="note"></app-notes-preview>
+    </div>
+  </div>
+
+
 </div>
+
+

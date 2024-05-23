@@ -128,10 +128,9 @@ export class EditComponent implements OnDestroy {
 
   getBodyParagraphs() {
     const body = this.editForm.controls.body.value || '';
-    const paragraphs = body.split(/<p><br><\/p>/g).filter(Boolean); // Dividere i paragrafi utilizzando il pattern <p><br></p>
+    const paragraphs = body.split(/\s*<p>\s*<br>\s*<\/p>\s*/g).filter(Boolean); // Dividere i paragrafi utilizzando il pattern <p><br></p>
     this.statistics.Paragraphs = paragraphs.length;
   }
-
 
   stripHtmlTags(html: string): string {
     // Rimuove tutti i tag HTML dalla stringa HTML

@@ -1,6 +1,5 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {Note, NoteService} from "../../../services/note.service";
-import {groupBy} from'lodash';
 
 export interface GroupedNotes {
   group: {
@@ -19,4 +18,9 @@ export class NotesComponent {
 
   myNotes$ = this.noteService.myNotes$
   constructor(private noteService: NoteService) {}
+
+  createNewNote() {
+    this.noteService.createNewNote();
+  }
+
 }
