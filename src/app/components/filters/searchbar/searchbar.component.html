@@ -1,0 +1,14 @@
+<div class="row searchbar overflow-hidden position-relative align-items-center">
+  <div class="col">
+    <input placeholder="Start your search..." [formControl]="query" type="text" class="w-100 h-100 input-search">
+  </div>
+  <div class="accessories w-auto d-flex" style="gap: 5px">
+    <img (click)="resetDeleteState()" class="delete" *ngIf="shouldShowDelete" width="20px"
+         src="assets/network_assets/close.svg" alt="">
+  </div>
+
+</div>
+
+<div class="row not-found position-relative justify-content-center">
+  <span class="col-auto">Not items found for this search</span>
+</div>

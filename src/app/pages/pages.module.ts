@@ -16,6 +16,10 @@ import {PagesComponent} from "./pages.component";
 import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.component";
 import {NotesPreviewComponent} from "../components/previews/notes-preview/notes-preview.component";
 import {SortPipe} from "../pipes/sort.pipe";
+import { ManagerComponent } from './manager/manager.component';
+import { DirComponent } from './manager/dir/dir.component';
+import { FileComponent } from './manager/file/file.component';
+import {SearchbarComponent} from "../components/filters/searchbar/searchbar.component";
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import {SortPipe} from "../pipes/sort.pipe";
     GobackComponent,
     CreateBlankEntityComponent,
     NotesPreviewComponent,
-    SortPipe
+    SortPipe,
+    ManagerComponent,
+    DirComponent,
+    FileComponent,
+    SearchbarComponent
   ],
   imports: [
     CommonModule,

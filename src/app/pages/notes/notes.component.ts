@@ -1,13 +1,5 @@
 import {Component} from '@angular/core';
-import {Note, NoteService} from "../../../services/note.service";
-
-export interface GroupedNotes {
-  group: {
-    letter: string;
-    qty: number;
-  };
-  children: Note[];
-}
+import {NoteService} from "../../../services/note.service";
 
 @Component({
   selector: 'app-notes',
@@ -17,7 +9,10 @@ export interface GroupedNotes {
 export class NotesComponent {
 
   myNotes$ = this.noteService.myNotes$
-  constructor(private noteService: NoteService) {}
+  filtered$ = this.noteService.filteredNotes$
+
+  constructor(public noteService: NoteService) {
+  }
 
   createNewNote() {
     this.noteService.createNewNote();

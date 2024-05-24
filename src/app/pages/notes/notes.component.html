@@ -1,4 +1,12 @@
 <div class="container mt-3">
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+      <app-searchbar (emitQuery)="noteService.filterNotes($event)"></app-searchbar>
+    </div>
+  </div>
+
+
   <div class="row">
     <div class="col-auto m-0 p-0">
       <span class="fs-2 fw-medium proj-files">Project files</span>
@@ -15,8 +23,8 @@
   </div>
 
 
-  <div class="row my-5 flex-wrap justify-content-center w-100">
-    <div *ngFor="let note of myNotes$ | async | sort:'updated_at' " class="col-auto m-2 p-0">
+  <div class="row mb-5 mt-3 flex-wrap justify-content-center w-100">
+    <div *ngFor="let note of (filtered$ | async | sort:'updated_at') || (myNotes$ | async | sort:'updated_at') " class="col-auto m-2 p-0">
       <app-notes-preview [note]="note"></app-notes-preview>
     </div>
   </div>

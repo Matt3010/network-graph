@@ -1,0 +1,31 @@
+<div class="container">
+  <!--
+
+  <div class="row align-items-center">
+    <div class="col m-0 p-0">
+      <span class="fs-2 fw-medium proj-files">Network Manager</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-auto pill">
+      Create folder
+    </div>
+  </div>
+-->
+
+
+  <div class="row">
+    <div class="col-auto item mt-3" *ngFor="let item of manager$ | async">
+      <div *ngIf="item.type === 'directory'">
+        <app-dir [dir]="item"></app-dir>
+      </div>
+      <div *ngIf="item.type === 'file'">
+        <app-file [file]="item"></app-file>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

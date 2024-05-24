@@ -1,8 +1,8 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
-import { Note, NoteService } from '../../../../../services/note.service';
-import { ActivatedRoute } from '@angular/router';
-import { debounceTime } from 'rxjs/operators';
-import { FormControl, FormGroup } from '@angular/forms';
+import {Component, HostListener, OnDestroy} from '@angular/core';
+import {Note, NoteService} from '../../../../../services/note.service';
+import {ActivatedRoute} from '@angular/router';
+import {debounceTime} from 'rxjs/operators';
+import {FormControl, FormGroup} from '@angular/forms';
 
 export interface FormStatistics {
   Chars: number;
@@ -97,25 +97,24 @@ export class EditComponent implements OnDestroy {
   }
 
   save() {
-    if (this.id && this.editForm.valid) {
-      this.noteService.saveNote({
-        id: this.id,
-        title: this.editForm.value.title!,
-        body: this.addClassToImages(this.editForm.value.body!),
-        created_by: this.editForm.value.created_by!,
-        created_at: this.editForm.value.created_at!,
-        updated_at: this.editForm.value.updated_at!,
-      }).subscribe((res) => {
-        if (res === 'saved') {
-          this.hasSaved = true;
-        }
-      });
-    }
+    this.noteService.saveNote({
+      id: this.id!,
+      title: this.editForm.value.title!,
+      body: this.addClassToImages(this.editForm.value.body!),
+      created_by: this.editForm.value.created_by!,
+      created_at: this.editForm.value.created_at!,
+      updated_at: this.editForm.value.updated_at!,
+    }).subscribe((res) => {
+      if (res === 'saved') {
+        this.hasSaved = true;
+      }
+    });
   }
 
   private addClassToImages(body: string): string {
-    return body.replace(/<img/g, '<img class="content-img"');
+    return body === null ? '' : body.replace(/<img/g, '<img class="content-img"');
   }
+
 
   getBodyChars() {
     const body = this.editForm.controls.body.value || '';

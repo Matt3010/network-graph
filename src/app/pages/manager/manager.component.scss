@@ -1,0 +1,16 @@
+.proj-files {
+  position: relative;
+  top: 35px;
+}
+
+.pill {
+  border-radius: 100px;
+  padding: 4px 24px;
+  border: solid #595959 0.5px;
+  background-color: white;
+
+  &:hover {
+    filter: brightness(0.9);
+    cursor: pointer;
+  }
+}

@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {PagesComponent} from './pages.component';
 import {NotesComponent} from "./notes/notes.component";
 import {EditComponent} from "./notes/edit/edit/edit.component";
+import {ManagerComponent} from "./manager/manager.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
         path: '',
         pathMatch: "full",
         redirectTo: 'home'
+      },
+      {
+        path: 'cloud',
+        component: ManagerComponent
       },
       {
         path: 'notes',

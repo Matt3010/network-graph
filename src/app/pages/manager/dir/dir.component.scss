@@ -1,0 +1,25 @@
+.card {
+  width: 140px;
+  aspect-ratio: 1/1;
+  background-color: #f6f8fa;
+  border-radius: 12px;
+  overflow: hidden;
+  border: solid 0px;
+  gap: 15px;
+
+  &:hover {
+    filter: brightness(0.95);
+    cursor: pointer;
+    transition: all 0.3s;
+   }
+  &:not(:hover) {
+    filter: brightness(1);
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
+}
+
+
+.folder {
+  filter: brightness(0.9);
+}

@@ -13,9 +13,8 @@
 <form [formGroup]="editForm" class="form position-relative h-100 w-100">
 
   <div *ngIf='isLock' class="row title">
-    <div class="col-12 center-mobile">
-      <input class="title-input text-truncate d-inline-block" style="max-width: 100%" type="text"
-             formControlName="title">
+    <div class="col-auto center-mobile d-flex flex-column">
+      <input class="title-input text-truncate d-inline-block" style="max-width: 100%" type="text" formControlName="title">
     </div>
   </div>
 
@@ -24,7 +23,8 @@
     class="position-relative p-editor"
     [style.width]="'100%'"
     formControlName="body"
-    [style]="{ 'height': window.innerHeight -105+ 'px', width: '100%', position: 'relative', 'font-size': '16px', 'background-color': '#f2f2f2' }"></p-editor>
+    [style]="{ 'height': window.innerHeight -105+ 'px', width: '100%', position: 'relative', 'font-size': '16px', 'background-color': '#f2f2f2' }">
+  </p-editor>
 </form>
 
 <app-statistics [statistics]="statistics"></app-statistics>

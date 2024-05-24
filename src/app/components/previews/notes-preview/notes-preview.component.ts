@@ -29,4 +29,12 @@ export class NotesPreviewComponent implements OnInit{
     console.log('ciao')
   }
 
+  checkIfAttachmentsExists() {
+    if(this.note.attachments && this.note.attachments.data && this.note.attachments.data.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
 }
