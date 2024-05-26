@@ -1,13 +1,12 @@
 <div class="container mt-3">
 
-  <div class="row justify-content-center mt-4">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+  <div class="row justify-content-center position-sticky my-4 z-2" style="top: 80px;">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 m-0 p-0">
       <app-searchbar (emitQuery)="noteService.getMyNotes($event)"></app-searchbar>
     </div>
   </div>
 
-
-  <div class="row mt-4">
+  <div class="row">
     <div class="col-auto m-0 p-0">
       <span class="fs-2 fw-medium proj-files">Project files</span>
     </div>

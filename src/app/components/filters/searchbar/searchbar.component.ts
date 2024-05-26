@@ -23,8 +23,10 @@ export class SearchbarComponent implements OnInit {
     const last = localStorage.getItem('network-last-query-search');
     if (last) {
       this.query.setValue(last)
+      this.shouldShowDelete = true;
     } else {
       this.query.setValue('')
+      this.shouldShowDelete = false;
     }
 
     this.query.valueChanges
