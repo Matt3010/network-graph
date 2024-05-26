@@ -9,6 +9,6 @@
 
 </div>
 
-<div class="row not-found position-relative justify-content-center">
+<div *ngIf="noteService.notesSearchNotFound$ | async" class="row not-found position-relative justify-content-center">
   <span class="col-auto">Not items found for this search</span>
 </div>

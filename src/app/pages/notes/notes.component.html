@@ -2,18 +2,18 @@
 
   <div class="row justify-content-center mt-4">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-      <app-searchbar (emitQuery)="noteService.filterNotes($event)"></app-searchbar>
+      <app-searchbar (emitQuery)="noteService.getMyNotes($event)"></app-searchbar>
     </div>
   </div>
 
 
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-auto m-0 p-0">
       <span class="fs-2 fw-medium proj-files">Project files</span>
     </div>
   </div>
 
-  <div class="row justify-content-start overflow-x-auto flex-nowrap pt-5 pb-2">
+  <div class="row justify-content-start overflow-x-auto flex-nowrap">
     <div class="col-auto m-0 p-0">
       <app-create-blank-entity (emitEntityCreation)="createNewNote()"
                                [asset_img]="'assets/network_assets/google_docs.png'"
@@ -23,13 +23,26 @@
   </div>
 
 
-  <div class="row mb-5 mt-3 flex-wrap justify-content-center w-100">
-    <div *ngFor="let note of (filtered$ | async | sort:'updated_at') || (myNotes$ | async | sort:'updated_at') " class="col-auto m-2 p-0">
+  <div *ngIf="(myNotes$ | async)?.length! > 0; else noNotes" class="grid-container mt-4 mb-5">
+    <div *ngFor="let note of (myNotes$ | async | sort:'updated_at') || (myNotes$ | async | sort:'updated_at') "
+         class="grid-item">
       <app-notes-preview [note]="note"></app-notes-preview>
     </div>
   </div>
 
 
+  <ng-template #noNotes>
+    <div class="row flex-column p-5 justify-content-center align-items-center">
+      <div class="col-auto">
+        <img class="no_notes_img" src="assets/network_assets/no-notes.svg" alt="no notes">
+      </div>
+      <div class="col-auto">
+         <span class="no_notes_text">
+          Notes not found!
+        </span>
+      </div>
+
+    </div>
+  </ng-template>
+
 </div>
-
-

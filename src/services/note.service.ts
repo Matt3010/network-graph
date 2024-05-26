@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { TokenService } from './token.service';
-import { Router } from '@angular/router';
-import { environment } from '../environments/environment';
-import { Attachment } from '../@data/attachment';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {map, tap} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
+import {TokenService} from './token.service';
+import {Router} from '@angular/router';
+import {environment} from '../environments/environment';
+import {Attachment} from '../@data/attachment';
 
 export interface Note {
   id: string;
@@ -25,7 +25,7 @@ export class NoteService {
 
   apiUrl: string;
   myNotes$ = new BehaviorSubject<Note[]>([]);
-  filteredNotes$ = new BehaviorSubject<Note[]>([]);
+  notesSearchNotFound$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private http: HttpClient,
@@ -34,7 +34,16 @@ export class NoteService {
     private router: Router,
   ) {
     this.apiUrl = environment.api_url + '/notes';
-    this.getMyNotes();
+    this.init();
+  }
+
+  init() {
+    const last = localStorage.getItem('network-last-query-search')
+    if (last) {
+      this.getMyNotes(last)
+    } else {
+      this.getMyNotes('')
+    }
   }
 
   createNewNote() {
@@ -48,16 +57,21 @@ export class NoteService {
       });
   }
 
-  getMyNotes() {
-    this.http.get<any>(this.apiUrl + '/all')
+  getMyNotes(query?: string) {
+    this.http.get<any>(this.apiUrl + '/all?q=' + query)
       .pipe(
         map((res) => res.data),
       )
       .subscribe((notes: Note[]) => {
-        this.myNotes$.next(notes);
-        const lastQuery = localStorage.getItem('network-last-query-search') || '';
-        this.filterNotes(lastQuery);
-      });
+          this.notesSearchNotFound$.next(false);
+          this.myNotes$.next(notes);
+        },
+        (err) => {
+          if (err.status === 404) {
+            this.notesSearchNotFound$.next(true);
+            this.myNotes$.next([]);
+          }
+        });
   }
 
   saveNote(noteUpdated: Note) {
@@ -69,9 +83,6 @@ export class NoteService {
           if (index !== -1) {
             current[index] = noteUpdated;
             this.myNotes$.next([...current]);
-            this.updateFilteredNotes();
-            const lastQuery = localStorage.getItem('network-last-query-search') || '';
-            this.filterNotes(lastQuery);
           }
         }
       })
@@ -85,25 +96,11 @@ export class NoteService {
       );
   }
 
-  filterNotes(query: string) {
-    localStorage.setItem('network-last-query-search', query);
-    this.updateFilteredNotes(query);
-  }
-
   private updateNotes(note: Note) {
     const currentNotes = this.myNotes$.value;
     const newArray = [...currentNotes, note];
     this.myNotes$.next(newArray);
-    this.updateFilteredNotes();
   }
 
-  private updateFilteredNotes(query: string = '') {
-    const filteredValue = this.myNotes$.value.filter((i: Note) => {
-      return (
-        i.title?.toLowerCase().includes(query.toLowerCase()) ||
-        i.body?.toLowerCase().includes(query.toLowerCase())
-      );
-    });
-    this.filteredNotes$.next(filteredValue.length > 0 ? filteredValue : this.myNotes$.value);
-   }
+
 }

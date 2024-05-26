@@ -1,5 +1,6 @@
-import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
+import {debounceTime} from "rxjs/operators";
 import {NoteService} from "../../../../services/note.service";
 
 @Component({
@@ -7,29 +8,37 @@ import {NoteService} from "../../../../services/note.service";
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss']
 })
-export class SearchbarComponent {
+export class SearchbarComponent implements OnInit {
 
   query: FormControl = new FormControl('');
   shouldShowDelete: boolean = false;
   @Output() emitQuery = new EventEmitter<string>()
 
   constructor(
-    private noteService: NoteService,
+    public noteService: NoteService
   ) {
+  }
 
-    const lastQuery = localStorage.getItem('network-last-query-search')
-    if(lastQuery) {
-      this.query.setValue(lastQuery!)
-      this.shouldShowDelete = true;
+  ngOnInit() {
+    const last = localStorage.getItem('network-last-query-search');
+    if (last) {
+      this.query.setValue(last)
+    } else {
+      this.query.setValue('')
     }
 
-    this.query.valueChanges.subscribe((res: string) => {
-      this.shouldShowDelete = true;
-      this.emit(res);
-      if(res.length === 0) {
-        this.shouldShowDelete = false;
-      }
-    })
+    this.query.valueChanges
+      .pipe(
+        debounceTime(300)
+      )
+      .subscribe((res: string) => {
+        localStorage.setItem('network-last-query-search', res)
+        this.shouldShowDelete = true;
+        this.emit(res);
+        if (res.length === 0) {
+          this.shouldShowDelete = false;
+        }
+      })
   }
 
   emit(to_emit: string) {
@@ -41,5 +50,4 @@ export class SearchbarComponent {
     this.emit('');
     this.shouldShowDelete = false;
   }
-
 }

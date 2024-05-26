@@ -9,7 +9,6 @@ import {NoteService} from "../../../services/note.service";
 export class NotesComponent {
 
   myNotes$ = this.noteService.myNotes$
-  filtered$ = this.noteService.filteredNotes$
 
   constructor(public noteService: NoteService) {
   }
