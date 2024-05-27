@@ -31,6 +31,9 @@ RUN composer install --prefer-dist --no-scripts --no-dev --ignore-platform-reqs
 # Genera autoload per Composer
 RUN composer dump-autoload --ignore-platform-reqs
 
+# Genera la chiave dell'applicazione Laravel
+RUN php artisan key:generate
+
 # Imposta i permessi corretti
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage \

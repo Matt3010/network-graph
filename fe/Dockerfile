@@ -1,5 +1,5 @@
 # Step 1: Costruzione dell'applicazione Angular
-FROM node:16-alpine AS build
+FROM node AS build
 
 # Imposta la directory di lavoro
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Compila l'applicazione Angular
-RUN npm run build --prod
+RUN npm run build
 
 # Step 2: Configurazione di Nginx per servire l'applicazione Angular
 FROM nginx:alpine

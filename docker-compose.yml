@@ -1,31 +1,26 @@
-version: '3.8'
-
 services:
-  angular-app:
-    image: node:16-alpine
-    container_name: angular-app
+  angular:
+    container_name: network-fe
     build:
-      context: ./fe
+      context: ./fe  # Path alla directory che contiene il Dockerfile per Angular
       dockerfile: Dockerfile
     ports:
-      - "80:80"
-    volumes:
-      - ./fe:/app
+      - "8080:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend
 
-  laravel-app:
-    image: php:8.2-fpm
-    container_name: laravel-app
+  backend:
+    container_name: network-be
     build:
-      context: ./be
+      context: ./be  # Path alla directory che contiene il Dockerfile per il backend
       dockerfile: Dockerfile
-    ports:
-      - "9000:9000"
-    volumes:
-      - ./be:/var/www
-    environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=host.docker.internal
-      - DB_PORT=5432
-      - DB_DATABASE=your-database
-      - DB_USERNAME=your-username
-      - DB_PASSWORD=your-password
+    expose:
+      - "9000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
