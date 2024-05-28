@@ -1,44 +1,43 @@
-# Usa una immagine di base ufficiale di PHP 8.2 con estensioni necessarie e Composer
-FROM php:8.2-fpm
+FROM php:8.2-apache
 
-# Installa le dipendenze del sistema operativo
+# Aggiorna l'elenco dei pacchetti e installa le dipendenze necessarie per Laravel e PostgreSQL
 RUN apt-get update && apt-get install -y \
-    build-essential \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
-    libonig-dev \
-    libxml2-dev \
+    libzip-dev \
     zip \
     unzip \
-    git \
-    curl \
+    libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql zip
+# Attiva i moduli di Apache necessari
+RUN a2enmod rewrite
 
-# Installa Composer
-COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
+# Imposta la directory di lavoro nell'app Laravel
+WORKDIR /var/www/html
 
-# Imposta la directory di lavoro
-WORKDIR /var/www
-
-# Copia i file del progetto
+# Copia i file dell'applicazione nell'immagine Docker
 COPY . .
 
-# Installa le dipendenze di Laravel
-RUN composer install --prefer-dist --no-scripts --no-dev --ignore-platform-reqs
+COPY .env.prod .env
 
-# Genera autoload per Composer
-RUN composer dump-autoload --ignore-platform-reqs
+# Installa le dipendenze PHP usando Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install
 
-# Genera la chiave dell'applicazione Laravel
-RUN php artisan key:generate
+# Imposta i permessi appropriati per l'applicazione Laravel
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
-# Imposta i permessi corretti
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage \
-    && chmod -R 755 /var/www/bootstrap/cache
+# Copia il file di configurazione per Apache
+COPY laravel.conf /etc/apache2/sites-available/000-default.conf
 
-# Espone la porta 9000 e avvia php-fpm
-EXPOSE 9000
-CMD ["php-fpm"]
+# Abilita il modulo di PostgreSQL
+RUN docker-php-ext-enable pdo_pgsql
+
+# Esponi la porta 80 per il traffico HTTP
+EXPOSE 80
+
+# Comando di avvio per l'immagine Docker
+CMD ["apache2-foreground"]

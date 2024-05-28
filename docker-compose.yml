@@ -2,22 +2,55 @@ services:
   angular:
     container_name: network-fe
     build:
-      context: ./fe  # Path alla directory che contiene il Dockerfile per Angular
+      context: ./fe
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
-    networks:
-      - app-network
+      - "8000:80"
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     container_name: network-be
     build:
-      context: ./be  # Path alla directory che contiene il Dockerfile per il backend
+      context: ./be
       dockerfile: Dockerfile
-    expose:
-      - "9000"
+    ports:
+      - "9004:80"
+    depends_on:
+      - minio
+      - postgres
+    networks:
+      - app-network
+
+  minio:
+    container_name: minio
+    image: docker.io/bitnami/minio:latest
+    ports:
+      - '9001:9001'
+      - '9002:9002'
+    volumes:
+      - '/Users/matteoscanferla/DockerVolumes/minio:/data'
+    environment:
+      - MINIO_ROOT_USER=scanferla935@gmail.com
+      - MINIO_ROOT_PASSWORD=RenaultClio123_
+      - MINIO_DEFAULT_BUCKETS=network-storage
+    networks:
+      - app-network
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: network_db
+      POSTGRES_USER: da9w8djaw8dj9aw8dj9aw8dja98wdj
+      POSTGRES_PASSWORD: mo0fwe9jmew0f9j0fwejf0w9ejf0w9efjw0e9fj
+    ports:
+      - "5432:5432"
+    volumes:
+      - '/Users/matteoscanferla/DockerVolumes/pgsql:/var/lib/postgresql/data'
     networks:
       - app-network
 
