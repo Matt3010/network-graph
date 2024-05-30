@@ -3,43 +3,50 @@ import {NotifyComponent} from "../components/notify/notify.component";
 import {NotesComponent} from "./notes/notes.component";
 import {CommonModule} from "@angular/common";
 import {PagesRoutingModule} from "./pages-routing.module";
-import {NavbarComponent} from "../components/navbar/navbar.component";
 import {NgModule} from "@angular/core";
 import {EditorModule} from "primeng/editor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {GobackComponent} from "../components/goback/goback.component";
 import {ToastrModule} from "ngx-toastr";
-import {CreateBlankEntityComponent} from "../components/create-blank-entity/create-blank-entity.component";
-import {LogoComponent} from "../components/logo/logo.component";
 import {PagesComponent} from "./pages.component";
 import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.component";
-import {NotesPreviewComponent} from "../components/previews/notes-preview/notes-preview.component";
 import {SortPipe} from "../pipes/sort.pipe";
-import { ManagerComponent } from './manager/manager.component';
-import { DirComponent } from './manager/dir/dir.component';
-import { FileComponent } from './manager/file/file.component';
+import {ManagerComponent} from './manager/manager.component';
+import {DirComponent} from './manager/dir/dir.component';
+import {FileComponent} from './manager/file/file.component';
 import {SearchbarComponent} from "../components/filters/searchbar/searchbar.component";
 import {EditComponent} from "./notes/edit/edit/edit.component";
+import {SidebarComponent} from "../components/sidebar/sidebar.component";
+import {HeaderComponent} from "../components/sidebar/header/header.component";
+import {DividerComponent} from "../components/divider/divider.component";
+import {MenuComponent} from "../components/sidebar/menu/menu.component";
+import {SimpleTitleComponent} from "../components/titles/simple-title/simple-title.component";
+import {NotesLayout1Component} from "../components/previews/notes/notes-layout-1/notes-layout-1.component";
+import {TooltipModule} from "primeng/tooltip";
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
   declarations: [
     PagesComponent,
     NotesComponent,
-    NavbarComponent,
     UserDropdownComponent,
-    LogoComponent,
     EditComponent,
     StatisticsComponent,
     NotifyComponent,
     GobackComponent,
-    CreateBlankEntityComponent,
-    NotesPreviewComponent,
     SortPipe,
     ManagerComponent,
     DirComponent,
     FileComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    SidebarComponent,
+    HeaderComponent,
+    DividerComponent,
+    MenuComponent,
+    SimpleTitleComponent,
+    NotesLayout1Component,
+
   ],
   imports: [
     CommonModule,
@@ -49,6 +56,8 @@ import {EditComponent} from "./notes/edit/edit/edit.component";
     ReactiveFormsModule,
     FormsModule,
     EditorModule,
+    TooltipModule,
+    TableModule
   ]
 })
 export class PagesModule {

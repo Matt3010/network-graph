@@ -1,47 +1,10 @@
-<div class="container mt-3">
+<div class="row p-4">
 
-  <div class="row justify-content-center position-sticky my-4 z-2" style="top: 80px;">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6 m-0 p-0">
-      <app-searchbar (emitQuery)="noteService.getMyNotes($event)"></app-searchbar>
-    </div>
+  <app-simple-title [pageTitle]="'all notes'"></app-simple-title>
+
+  <!-- ALL NOTES LIST LAYOUT 1 COMPONENT -->
+  <div *ngIf="(myNotes$ | async)?.length! > 0;">
+    <app-notes-layout-1 [notes]="(myNotes$ | async)!"></app-notes-layout-1>
   </div>
-
-  <div class="row">
-    <div class="col-auto m-0 p-0">
-      <span class="fs-2 fw-medium proj-files">Project files</span>
-    </div>
-  </div>
-
-  <div class="row justify-content-start overflow-x-auto flex-nowrap">
-    <div class="col-auto m-0 p-0">
-      <app-create-blank-entity (emitEntityCreation)="createNewNote()"
-                               [asset_img]="'assets/network_assets/google_docs.png'"
-                               [entity]="'note'"></app-create-blank-entity>
-
-    </div>
-  </div>
-
-
-  <div *ngIf="(myNotes$ | async)?.length! > 0; else noNotes" class="grid-container mt-4 mb-5">
-    <div *ngFor="let note of (myNotes$ | async | sort:'updated_at') || (myNotes$ | async | sort:'updated_at') "
-         class="grid-item">
-      <app-notes-preview [note]="note"></app-notes-preview>
-    </div>
-  </div>
-
-
-  <ng-template #noNotes>
-    <div class="row flex-column p-5 justify-content-center align-items-center">
-      <div class="col-auto">
-        <img class="no_notes_img" src="assets/network_assets/no-notes.svg" alt="no notes">
-      </div>
-      <div class="col-auto">
-         <span class="no_notes_text">
-          Notes not found!
-        </span>
-      </div>
-
-    </div>
-  </ng-template>
 
 </div>

@@ -15,24 +15,21 @@
 }
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
   gap: 10px;
  }
-
-.grid-item {
-}
 
 /* Media query per 3 colonne */
 @media screen and (max-width: 1100px) {
   .grid-container {
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
   }
 }
 
 /* Media query per 2 colonne */
 @media screen and (max-width: 900px) {
   .grid-container {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
   }
 }
 

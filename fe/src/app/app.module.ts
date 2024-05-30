@@ -20,7 +20,7 @@ import {
   declarations: [
     AppComponent,
     LoginComponent,
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,7 +31,7 @@ import {
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     SocialLoginModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
@@ -53,6 +53,7 @@ import {
       } as SocialAuthServiceConfig,
     }
   ],
+
 
   bootstrap: [AppComponent]
 })

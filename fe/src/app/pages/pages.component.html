@@ -1,9 +1,8 @@
-   <app-navbar></app-navbar>
-   <div style="padding-top: 60px">
-     <router-outlet></router-outlet>
-   </div>
-
-
-<div (click)="createNewNote()" class="new_fast_note position-fixed">
-  <img width="30px" src="assets/network_assets/pen.svg" alt="pen">
+<div class="d-flex flex-row vh-100">
+  <div class="col-auto">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col overflow-hidden">
+    <router-outlet></router-outlet>
+  </div>
 </div>
