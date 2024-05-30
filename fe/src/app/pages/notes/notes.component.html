@@ -4,7 +4,7 @@
 
   <!-- ALL NOTES LIST LAYOUT 1 COMPONENT -->
   <div *ngIf="(myNotes$ | async)?.length! > 0" class="grid-container mt-4 mb-5">
-    <div *ngFor="let note of (myNotes$ | async | sort:'updated_at') || (myNotes$ | async | sort:'updated_at') "
+    <div *ngFor="let note of (myNotes$ | async | sort:'updated_at')"
          class="grid-item">
       <app-notes-preview-layout-1 [note]="note"></app-notes-preview-layout-1>
     </div>

@@ -10,7 +10,7 @@ import {GobackComponent} from "../components/common/utils/goback/goback.componen
 import {ToastrModule} from "ngx-toastr";
 import {PagesComponent} from "./pages.component";
 import {UserDropdownComponent} from "../components/user-dropdown/user-dropdown.component";
-import {SortPipe} from "../pipes/sort.pipe";
+import {SortPipe} from "../../pipes/sort.pipe";
 import {ManagerComponent} from './manager/manager.component';
 import {DirComponent} from './manager/dir/dir.component';
 import {FileComponent} from './manager/file/file.component';
@@ -27,6 +27,7 @@ import {
 } from "../components/previews/notes/notes-preview-layout-1/notes-preview-layout-1.component";
 import {EditComponent} from "./notes-edit/edit.component";
 import { DropzoneComponent } from './dropzone/dropzone.component';
+import {DateAgoPipe} from "../../pipes/date-ago.pipe";
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { DropzoneComponent } from './dropzone/dropzone.component';
     NotifyComponent,
     GobackComponent,
     SortPipe,
+    DateAgoPipe,
     ManagerComponent,
     DirComponent,
     FileComponent,
@@ -60,7 +62,7 @@ import { DropzoneComponent } from './dropzone/dropzone.component';
     FormsModule,
     EditorModule,
     TooltipModule,
-    TableModule
+    TableModule,
   ]
 })
 export class PagesModule {

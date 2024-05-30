@@ -20,7 +20,7 @@ import {
   declarations: [
     AppComponent,
     LoginComponent,
-   ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -53,8 +53,6 @@ import {
       } as SocialAuthServiceConfig,
     }
   ],
-
-
   bootstrap: [AppComponent]
 })
 export class AppModule {
