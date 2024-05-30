@@ -6,17 +6,12 @@ return [
     'disks' => [
         's3' => [
             'driver' => 's3',
-            'key' => 'ZLHOwxxB3xr1Jjmiea9F',
-            'secret' => 'tvcGrr4pjzIR0iOIn4oYtFYRuvGdDsLpyfXVrq11',
-            'region' => 'us-east-1', // Cambia la regione se necessario
+            'key' => 'CUbTjDvMU6S5BmnRuG5T',
+            'secret' => 'qKFKViTkUNcdx7qjOVX0OM5o4IR5t5BVCoa0jYRD',
+            'region' => 'us-east-1',
             'bucket' => 'network-storage',
-            'endpoint' => 'minio', // Indirizzo di MinIO
-            'use_path_style_endpoint' => true, // Necessario per l'endpoint locale
+            'endpoint' => 'http://localhost:9000',
+            'use_path_style_endpoint' => true,
         ],
     ],
-
-    'links' => [
-        public_path('storage') => storage_path('app/public'),
-    ],
-
 ];

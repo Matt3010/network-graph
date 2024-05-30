@@ -79,7 +79,7 @@ class NoteController extends Controller
         if (!$request->hasFile('attachment')) {
             return response()->json('You must upload an attachment!');
         }
-        $attachment = $request->file('attachment');
+       $attachment = $request->file('attachment');
         $res = $note->uploadDocument($attachment);
 
         $manager = new Manager();

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiTokenController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
@@ -28,6 +29,9 @@ Route::prefix('notes')->middleware('auth:sanctum')->group(function () {
     Route::patch('{note}', [NoteController::class, 'patch']);
 });
 
+Route::prefix('documents')->middleware('auth:sanctum')->group(function () {
+    Route::post('check', [DocumentController::class, 'checkIfUploaded']);
+});
 
 Route::prefix('cloud')->middleware('auth:sanctum')->group(function () {
     Route::get('{dir_to_go?}', [NavigationController::class, 'navigate'])
@@ -37,5 +41,4 @@ Route::prefix('cloud')->middleware('auth:sanctum')->group(function () {
         ->where('path', '(.*)');
     Route::delete('dir/{path}', [NavigationController::class, 'deleteDir'])
         ->where('path', '(.*)');
-
 });

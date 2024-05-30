@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormStatistics} from "../../pages/notes/edit/edit/edit.component";
+import {FormStatistics} from "../../../../pages/notes-edit/edit.component";
 
 @Component({
   selector: 'app-statistics',

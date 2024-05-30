@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
-import {NoteService} from "../../../../services/note.service";
+import {NoteService} from "../../../../../../services/note.service";
 
 @Component({
   selector: 'app-searchbar',

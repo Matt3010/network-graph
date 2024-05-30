@@ -62,6 +62,7 @@ export class AuthService {
       })
   }
 
+
   me() {
       this.http.get<User>(environment.api_url + '/me').subscribe(
         (res: User) => {

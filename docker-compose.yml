@@ -28,8 +28,8 @@ services:
     container_name: minio
     image: docker.io/bitnami/minio:latest
     ports:
+      - '9000:9000'
       - '9001:9001'
-      - '9002:9002'
     volumes:
       - '/Users/matteoscanferla/DockerVolumes/minio:/data'
     environment:

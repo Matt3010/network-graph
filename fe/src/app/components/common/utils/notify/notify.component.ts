@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {SlideInOutAnimation} from "../../../services/utils/animations";
+import {SlideInOutAnimation} from "../../../../../services/utils/animations";
 
 @Component({
   selector: 'app-notify',

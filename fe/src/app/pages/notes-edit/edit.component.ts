@@ -1,5 +1,5 @@
 import {Component, HostListener, OnDestroy} from '@angular/core';
-import {Note, NoteService} from '../../../../../services/note.service';
+import {Note, NoteService} from '../../../services/note.service';
 import {ActivatedRoute} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -104,6 +104,7 @@ export class EditComponent implements OnDestroy {
       created_by: this.editForm.value.created_by!,
       created_at: this.editForm.value.created_at!,
       updated_at: this.editForm.value.updated_at!,
+      attachments: this.note?.attachments!,
     }).subscribe((res) => {
       if (res === 'saved') {
         this.hasSaved = true;
