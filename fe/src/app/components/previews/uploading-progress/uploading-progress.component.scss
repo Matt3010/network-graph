@@ -5,20 +5,12 @@
   position: fixed;
   border-radius: 6px 6px 0 0;
   width: 350px;
-  animation: fade-in 0.2s ease-in;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  } to {
-  opacity: 1;
-      }
-}
 
 .outer {
   position: relative;
-  background-color: #161616;
+  background-color: #303030;
   width: 100%;
   height: 60px;
   border-radius: 12px;
@@ -41,13 +33,17 @@
   overflow-y: auto;
 }
 
+.adjust {
+  position: relative;
+  top: -3px;
+}
+
 .entry {
   padding: 3px;
   width: 100%;
   height: 100%;
   gap: 10px;
   opacity: 1;
-  transition: opacity 0.5s ease-in;
 
   &-img {
     background-color: #ffffff;
@@ -74,14 +70,6 @@
   filter: invert(1);
 }
 
-@keyframes expand {
-    from {
-      min-height: 0px;
-    }
-    to {
-      min-height: 50px;
-    }
-}
 
 .tick {
   filter: invert(1);

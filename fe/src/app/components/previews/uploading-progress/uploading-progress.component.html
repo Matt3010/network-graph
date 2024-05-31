@@ -1,16 +1,10 @@
 <div class="cont" *ngIf="(filesUploaded$ | async)!.length > 0">
   <div class="outer d-flex align-items-center justify-content-between px-3">
-      <div>
-         {{(getFilesUploading() | async) || 0}}
-        <span class="label-sm">uploading - </span>
-        {{(getFilesUploaded() | async) || 0}}
-        <span class="label-sm">uploaded</span>
-      </div>
-
-    <img [class.rotate-180-left]="shouldBeExpanded" (click)="shouldBeExpanded = !shouldBeExpanded" class="tick"
-         width="30px"
-         src="assets/network_assets/tick-down.svg" alt="toggle">
-  </div>
+       <span  [class]="shouldBeExpanded ? 'adjust': null" class="label-sm">{{(getFilesUploaded() | async) || 0}} files uploaded</span>
+      <img  [class]="shouldBeExpanded ? 'adjust': null" [class.rotate-180-left]="shouldBeExpanded" (click)="shouldBeExpanded = !shouldBeExpanded" class="tick"
+           width="30px"
+           src="assets/network_assets/tick-down.svg" alt="toggle">
+   </div>
   <div class="inner" *ngIf="shouldBeExpanded">
     <div class="entry d-flex align-items-center" *ngFor="let file of filesUploaded$ | async">
       <img class="entry-img" width="30px" src="assets/network_assets/attach.svg" alt="entry_img">

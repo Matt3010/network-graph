@@ -65,7 +65,6 @@ export class DropzoneComponent implements OnInit, OnDestroy {
       if (dt) {
         const files = dt.files;
         for (let i = 0; i < files.length; i++) {
-          console.log('Dropped file:', files[i]);
           this.uploadFileIfEditMode(files[i]);
         }
       }
