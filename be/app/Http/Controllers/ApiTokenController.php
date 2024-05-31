@@ -25,7 +25,7 @@ class ApiTokenController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        $token = $user->createToken($request->token_name);
+        $token = $user->createToken($request->token_name, ['*'], now()->addDay());
 
         // Abilities
         //$token = $user->createToken($request->token_name, ['repo:view', 'repo:create']);
@@ -44,7 +44,7 @@ class ApiTokenController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        if(!isset($user)) {
+        if (!isset($user)) {
             return response()->json(['error' => "You must first register to access with Google."], 404);
         }
 
@@ -56,7 +56,7 @@ class ApiTokenController extends Controller
 
         $user->tokens()->where('name', $request->token_name)->delete();
 
-        $token = $user->createToken($request->token_name);
+        $token = $user->createToken($request->token_name, ['*'], now()->addDay());
         // Abilities
         //$token = $user->createToken($request->token_name, ['repo:view']);
 
