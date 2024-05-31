@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {environment} from '../environments/environment';
 import {Attachment} from '../@data/attachment';
 import {DocumentService} from "./document.service";
+import {UploadingProgressService} from "./utils/uploading-progress.service";
 
 export interface Note {
   id: string;
@@ -33,7 +34,8 @@ export class NoteService {
     private toastrService: ToastrService,
     private tokenService: TokenService,
     private router: Router,
-    private documentService: DocumentService
+    private documentService: DocumentService,
+    private uploadProgressService: UploadingProgressService
   ) {
     this.apiUrl = environment.api_url + '/notes';
     this.init();
@@ -120,29 +122,44 @@ export class NoteService {
   }
 
   uploadDocument(file: File, id: string) {
+    this.pushToProgress(file);
     const formData: FormData = new FormData();
     formData.append('attachment', file, file.name);
     this.http.post<Attachment>(this.apiUrl + '/' + id + '/upload', formData)
       .pipe(
         map((res: any) => res.data)
       )
-      .subscribe((doc: any) => {
-        if(doc) {
-           this.documentService.checkIfDocuemntExist(doc.default_url)
+      .subscribe((doc: Attachment) => {
+        if (doc) {
+          this.documentService.checkIfDocuemntExist(doc.default_url)
             .subscribe((check) => {
               console.log(check)
               if (check) {
+                this.updatedProgressSuccess(doc)
                 const last = this.myNotes$.value;
                 const index = last.findIndex((i) => i.id === id)
                 if (index !== -1) {
                   last[index].attachments.push(doc)
                   this.myNotes$.next(last);
                 }
+              } else {
+                this.updatedProgressFailed(doc)
               }
             })
         }
       })
   }
 
+  pushToProgress(file: File) {
+    this.uploadProgressService.pushNewFile({fileName: file.name, status: 'uploading', url: null})
+  }
+
+  updatedProgressSuccess(attachment: Attachment) {
+    this.uploadProgressService.updateStatusSuccess(attachment)
+  }
+
+  updatedProgressFailed(attachment: Attachment) {
+    this.uploadProgressService.updateStatusFailed(attachment)
+  }
 
 }

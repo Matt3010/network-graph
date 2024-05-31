@@ -28,6 +28,7 @@ import {
 import {EditComponent} from "./notes-edit/edit.component";
 import { DropzoneComponent } from './dropzone/dropzone.component';
 import {DateAgoPipe} from "../../pipes/date-ago.pipe";
+import {UploadingProgressComponent} from "../components/previews/uploading-progress/uploading-progress.component";
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import {DateAgoPipe} from "../../pipes/date-ago.pipe";
     MenuComponent,
     SimpleTitleComponent,
     NotesPreviewLayout1Component,
-    DropzoneComponent
+    DropzoneComponent,
+    UploadingProgressComponent
   ],
   imports: [
     CommonModule,

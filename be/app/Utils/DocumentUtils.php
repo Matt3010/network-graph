@@ -13,7 +13,7 @@ class DocumentUtils
     {
         $user = auth()->user();
 
-        $uploaded = Storage::disk('s3')->put("{$user->email}/attachments/{$model->id}", $file);
+        $uploaded = Storage::disk('s3')->putFileAs("{$user->email}/attachments/{$model->id}", $file, $file->getClientOriginalName());
 
         if ($uploaded) {
             $document = new Document([

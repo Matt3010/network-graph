@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { NoteService } from "../../../services/note.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import {UploadingProgressService} from "../../../services/utils/uploading-progress.service";
 
 @Component({
   selector: 'app-dropzone',
@@ -15,7 +16,6 @@ export class DropzoneComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private noteService: NoteService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {

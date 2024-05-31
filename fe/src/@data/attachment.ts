@@ -4,4 +4,5 @@ export interface Attachment {
     default_url: string
     created_at: string,
     updated_at: string,
+    filetype: string,
  }

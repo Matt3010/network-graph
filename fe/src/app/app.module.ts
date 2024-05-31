@@ -20,7 +20,7 @@ import {
   declarations: [
     AppComponent,
     LoginComponent,
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
