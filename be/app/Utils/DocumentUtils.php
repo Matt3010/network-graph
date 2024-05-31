@@ -4,11 +4,12 @@ namespace App\Utils;
 
 use App\Models\Document;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentUtils
 {
-    public function uploadForEntity($file, Model $model)
+    public function uploadForEntity(UploadedFile $file, Model $model)
     {
         $user = auth()->user();
 
@@ -18,6 +19,7 @@ class DocumentUtils
             $document = new Document([
                 'id' => uuid_create(),
                 'url' => $uploaded,
+                'mimetype' => $file->getMimeType(),
             ]);
             return $model->documents()->save($document);
         } else {
@@ -43,7 +45,8 @@ class DocumentUtils
         }
     }
 
-    public function checkFileIfUploaded($path) {
+    public function checkFileIfUploaded($path)
+    {
         $uploaded = Storage::disk('s3')->exists($path);
         return $uploaded ? true : false;
     }

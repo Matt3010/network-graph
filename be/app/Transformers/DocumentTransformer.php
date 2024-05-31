@@ -17,6 +17,7 @@ class DocumentTransformer extends TransformerAbstract
             'updated_at' => $document->updated_at,
             'url' => $document->url ? Storage::disk('s3')->temporaryUrl($document->url, now()->addDay()): null,
             'default_url' => $document->url,
+            'filetype' => $document->mimetype,
         ];
     }
 }

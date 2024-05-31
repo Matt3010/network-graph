@@ -17,6 +17,7 @@ class Document extends Model
     protected $fillable = [
         'id',
         'url',
+        'mimetype'
     ];
 
     public function documentable()
