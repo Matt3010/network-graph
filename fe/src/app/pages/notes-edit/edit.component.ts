@@ -27,6 +27,7 @@ export class EditComponent implements OnDestroy {
     Paragraphs: 0
   };
   isLock: boolean = false;
+  now: Date = new Date();
 
   editForm = new FormGroup({
     title: new FormControl(''),
@@ -43,7 +44,7 @@ export class EditComponent implements OnDestroy {
     this.initializeLock();
     this.editForm.reset();
     this.getNote();
-    this.editForm.valueChanges.pipe(debounceTime(500))
+    this.editForm.valueChanges.pipe(debounceTime(700))
       .subscribe(() => {
         if (this.editForm.touched) {
           this.hasSaved = false;
@@ -65,6 +66,10 @@ export class EditComponent implements OnDestroy {
     this.getBodyChars();
     this.getBodyWords();
     this.getBodyParagraphs();
+  }
+
+  getNow(){
+    return new Date();
   }
 
   getNote() {
@@ -140,9 +145,9 @@ export class EditComponent implements OnDestroy {
     return html.replace(/(<([^>]+)>)/gi, '');
   }
 
-  @HostListener('document:keydown.control.s', ['$event'])
+  @HostListener('document:keydown.meta.s', ['$event'])
   onKeyDown(event: KeyboardEvent) {
-    if (event.keyCode === 83 && event.ctrlKey) {
+    if (event.keyCode === 83 && event.metaKey) {
       event.preventDefault();
       this.save();
     }
