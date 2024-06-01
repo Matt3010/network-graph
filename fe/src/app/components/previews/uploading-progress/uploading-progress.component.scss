@@ -1,0 +1,75 @@
+.cont {
+  bottom: 0;
+  right: 0;
+  padding: 0 20px 20px 0;
+  position: fixed;
+  border-radius: 6px 6px 0 0;
+  width: 350px;
+}
+
+
+.outer {
+  position: relative;
+  background-color: #303030;
+  width: 100%;
+  height: 60px;
+  border-radius: 12px;
+  color: white;
+
+}
+
+.inner {
+  position: relative;
+  background-color: #1a1a1a;
+  width: 100%;
+  min-height: 50px;
+  border-radius: 0px 0px 12px 12px;
+  color: white;
+  padding: 10px;
+  max-height: 330px;
+  overflow-y: auto;
+}
+
+.adjust {
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.entry {
+  padding: 6px 0 6px 0;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  opacity: 1;
+
+  &-img {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 3px;
+    border: solid #d0d0d0 1px;
+  }
+
+  &-text {
+    font-size: 13px;
+  }
+
+  &-res {
+    filter: invert(1);
+  }
+}
+
+.label-sm {
+  font-size: 14px;
+}
+
+.link {
+  text-align: right;
+  filter: invert(1);
+}
+
+
+.tick {
+  filter: invert(1);
+  background-color: #9db000;
+  cursor: pointer;
+  border-radius: 50%;
+}

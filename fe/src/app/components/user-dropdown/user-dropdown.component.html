@@ -1,0 +1,10 @@
+<div class="pill row flex-nowrap align-items-center">
+  <div class="col-auto m-0 p-0" *ngIf="(currentUser$ | async) as user">
+    <img *ngIf="user.image_path;" class="photo_image" [src]="user.image_path" alt="photo_profile">
+    <div class="d-flex justify-content-center align-items-center photo_image"
+         *ngIf="!user.image_path;">{{user.name[0]}}</div>
+  </div>
+  <div class="col-auto m-0 p-0 d-flex align-items-center">
+    <img class="sandwich" width="20px" src="assets/network_assets/tick-down.svg" alt="menu">
+  </div>
+</div>

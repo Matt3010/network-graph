@@ -1,0 +1,5 @@
+.scrollable-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%; /* Garantisce che l'altezza sia del 100% del contenitore padre */
+}

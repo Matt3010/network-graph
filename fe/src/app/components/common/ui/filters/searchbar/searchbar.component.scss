@@ -1,0 +1,33 @@
+.searchbar {
+  background-color: #eeeeee;
+  height: 40px;
+  border-radius: 100px;
+  border: solid #dcdcdc 0.5px;
+
+}
+
+.input-search {
+  background-color: transparent;
+  border: 0;
+  padding-left: 15px;
+  color: #4b4b4b;
+
+  &:focus {
+    outline-width: 0;
+  }
+}
+
+.accessories {
+  position: absolute;
+  right: 0;
+  padding-right: 20px;
+}
+.delete {
+  cursor: pointer;
+}
+
+.not-found {
+  top: 5px;
+  z-index: 100;
+  font-size: 14px;
+}

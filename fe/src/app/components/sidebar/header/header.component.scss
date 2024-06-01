@@ -1,0 +1,46 @@
+.top {
+  margin-bottom: 10px !important;
+}
+
+.logo {
+  background: #625cff;
+  width: 30px;
+  aspect-ratio: 1/1;
+  border-radius: 6.5px;
+  padding: 5px;
+ }
+
+
+.app-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.create-doc-button {
+  background-color: #303030;
+  color: white;
+  height: 40px;
+  padding: 5px 16px;
+  border-radius: 8px;
+  border: 0;
+
+  &:hover {
+    filter:opacity(0.9);
+    transition: filter 0.2s ease-in;
+  }
+  &:not(:hover) {
+    filter:opacity(1);
+    transition: filter 0.2s ease-out;
+  }
+}
+
+.button-text {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+
+.add-white {
+  position: relative;
+  top: -0.5px;
+}

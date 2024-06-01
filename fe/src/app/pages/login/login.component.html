@@ -1,0 +1,46 @@
+<div class="row w-100 m-0 p-0 registration">
+  <div class="col-12 d-flex justify-content-end m-0 p-0">
+      <button class="m-3 button button-secondary button-secondary-info button-secondary-info-box-shadow">Don't have an account? Register here</button>
+  </div>
+</div>
+
+
+<div class="z-1 position-relative row vh-100 m-0 p-0 justify-content-center align-items-center">
+  <div class="modal-default modal-login d-flex flex-column justify-content-center align-items-center ">
+
+
+    <div class="d-flex justify-content-center flex-column align-items-center my-3">
+      <img class="logo" src="assets/network_assets/logo.svg" alt="logo">
+      <div class="col-12 d-flex justify-content-center my-4">
+        <span class="fs-4 fw-bold">Welcome to Network</span>
+      </div>
+    </div>
+
+        <div class="row w-100 flex-column" style="gap: 10px">
+          <form [formGroup]="loginForm">
+
+          <div class="col-12 mb-1">
+            <small>Email address</small>
+            <input id="email" formControlName="email" class="w-100 input input-text mt-1" type="text">
+          </div>
+          <div class="col-12 position-relative mb-3">
+            <small>Password</small>
+            <input id="password" formControlName="password"  class="w-100 input input-text mt-1" [type]="shouldShowPass === true ? 'text' : 'password'">
+            <img *ngIf="loginForm!.value.password != ''" (click)="deletePassword(); shouldShowPass = false" class="password_clear pointer"  width="20px" src="assets/network_assets/close.svg" alt="Clear">
+            <img *ngIf="!shouldShowPass" (click)="togglePassword()" class="hide_show pointer"  width="20px" src="assets/network_assets/closed-eye.svg" alt="hide/show">
+            <img *ngIf="shouldShowPass" (click)="togglePassword()" class="hide_show pointer" width="20px" src="assets/network_assets/opened-eye.svg" alt="hide/show">
+          </div>
+          <div class="col-12 mt-2 d-flex align-items-center">
+            <input [formControl]="rememberPassword" id="c1" class="input input-checkbox me-2" type="checkbox">
+            <label class="pointer" for="c1">Remember password?</label>
+          </div>
+          <div class="col-12 my-4">
+            <button (click)="doLogin()" class="button button-primary button-primary-default w-100 mb-2" type="submit">Login</button>
+            <asl-google-signin-button class="d-flex justify-content-center" width="300"  shape="pill" text="continue_with" type='standard' size='large'></asl-google-signin-button>
+          </div>
+          </form>
+        </div>
+  </div>
+</div>
+
+<div class="pattern"></div>

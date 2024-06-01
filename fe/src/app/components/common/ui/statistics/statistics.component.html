@@ -1,0 +1,7 @@
+<div class="statistics-container row d-none" *ngIf="statistics">
+  <div *ngFor="let stat of statistics | keyvalue; let i = index" class="col-auto m-0 p-0 d-flex justify-content-between align-items-center" style="gap: 5px">
+    <span>{{ stat.key }}: </span>
+    <span class="fw-bold">{{ stat.value }}</span>
+    <span *ngIf="i < (statistics | keyvalue)!.length - 1">|&nbsp;</span>
+  </div>
+</div>

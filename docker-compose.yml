@@ -1,0 +1,70 @@
+services:
+  angular:
+    container_name: network-fe
+    build:
+      context: ./fe
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    container_name: network-be
+    build:
+      context: ./be
+      dockerfile: Dockerfile
+    ports:
+      - "9004:80"
+    depends_on:
+      - minio
+      - postgres
+    networks:
+      - app-network
+
+  minio:
+    container_name: minio
+    image: docker.io/bitnami/minio:latest
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - '/Users/matteoscanferla/DockerVolumes/minio:/data'
+    environment:
+      - MINIO_ROOT_USER=scanferla935@gmail.com
+      - MINIO_ROOT_PASSWORD=RenaultClio123_
+      - MINIO_DEFAULT_BUCKETS=network-storage
+    networks:
+      - app-network
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: network_db
+      POSTGRES_USER: da9w8djaw8dj9aw8dj9aw8dja98wdj
+      POSTGRES_PASSWORD: mo0fwe9jmew0f9j0fwejf0w9ejf0w9efjw0e9fj
+    ports:
+      - "5432:5432"
+    volumes:
+      - '/Users/matteoscanferla/DockerVolumes/pgsql:/var/lib/postgresql/data'
+    networks:
+      - app-network
+
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: db_ui
+      ports:
+        - "8888:80"
+      environment:
+        PGADMIN_DEFAULT_EMAIL: scanferla935@gmail.com
+        PGADMIN_DEFAULT_PASSWORD: RenaultClio123_
+      networks:
+         - app-network
+
+networks:
+  app-network:
+    driver: bridge

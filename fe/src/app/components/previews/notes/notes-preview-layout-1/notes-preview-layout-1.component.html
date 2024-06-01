@@ -1,0 +1,36 @@
+<div class="card position-relative" (click)="goTo()">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="col-auto m-0 p-0 d-flex flex-column">
+      <span class="title text-truncate d-inline-block" style="max-width: 150px">
+        {{note.title}}
+      </span>
+      <div>
+          <span class="date">
+        {{note.created_at | date}}
+      </span>
+        <span class="dateAgo">
+          - {{note.created_at | dateAgo}}
+      </span>
+      </div>
+
+    </div>
+
+    <div (click)="openDropDown(); $event.stopPropagation()"
+         class="me-3 dot-group col-auto m-0 p-0 d-flex flex-column justify-content-center align-items-center"
+         style="gap: 3px;">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<div class="attachments d-flex align-items-center mt-1">
+  <div class="att-pill">
+          <span>
+            {{note.attachments!.length || 0}}
+          </span>
+    <img class="att-img" width="15px" src="assets/network_assets/attach.svg" alt="">
+  </div>
+</div>

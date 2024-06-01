@@ -1,0 +1,35 @@
+
+/* Importing Bootstrap SCSS file. */
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "../../node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+@import "./toastr";
+@import "./variables";
+
+.pointer {
+  cursor: pointer;
+}
+.denied {
+  cursor: not-allowed;
+}
+.rotate-90-right {
+  transform: rotate(-90deg);
+}
+.rotate-180-left {
+  transform: rotate(180deg);
+}
+
+
+
+/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
+/** {
+  scrollbar-width: thin;
+  scrollbar-color: #DBDBDB #FFFFFF;
+}*/
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+}
