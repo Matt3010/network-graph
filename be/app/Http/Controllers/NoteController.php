@@ -73,7 +73,7 @@ class NoteController extends Controller
         }
     }
 
-    public function upload(UploadDocumentRequest $request, Note $note)
+    public function upload(Request $request, Note $note)
     {
         //middleware
         if (!$request->hasFile('attachment')) {

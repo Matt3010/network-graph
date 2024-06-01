@@ -2,6 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/co
 import { NoteService } from "../../../services/note.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import {UploadingProgressService} from "../../../services/utils/uploading-progress.service";
+import {DocumentService} from "../../../services/document.service";
 
 @Component({
   selector: 'app-dropzone',
@@ -16,6 +17,7 @@ export class DropzoneComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private noteService: NoteService,
     private router: Router,
+    private documentService: DocumentService
   ) { }
 
   ngOnInit() {
@@ -97,6 +99,8 @@ export class DropzoneComponent implements OnInit, OnDestroy {
     if (this.router.url.includes('notes/edit/')) {
       const id = this.router.url.split('/')[4]
       this.noteService.uploadDocument(file, id);
+    } else {
+      this.documentService.uploadDocument(file);
     }
   }
 

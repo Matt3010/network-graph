@@ -31,6 +31,7 @@ Route::prefix('notes')->middleware('auth:sanctum')->group(function () {
 
 Route::prefix('documents')->middleware('auth:sanctum')->group(function () {
     Route::post('check', [DocumentController::class, 'checkIfUploaded']);
+    Route::post('upload', [DocumentController::class, 'upload']);
 });
 
 Route::prefix('cloud')->middleware('auth:sanctum')->group(function () {

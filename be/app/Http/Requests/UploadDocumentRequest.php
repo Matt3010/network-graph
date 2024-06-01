@@ -22,6 +22,7 @@ class UploadDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'path' => 'required'
         ];
     }
 }

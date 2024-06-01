@@ -6,6 +6,8 @@ import {TokenService} from "./token.service";
 import {Router} from "@angular/router";
 import {environment} from "../environments/environment";
 import {Note} from "./note.service";
+import {UploadingProgressService} from "./utils/uploading-progress.service";
+import {UploadUtils} from "./utils/upload.utils";
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +23,14 @@ export class DocumentService {
     private toastrService: ToastrService,
     private tokenService: TokenService,
     private router: Router,
+    private uploadProgressService: UploadingProgressService,
+    private uploadUtils: UploadUtils,
   ) {
     this.apiUrl = environment.api_url + '/documents';
   }
 
-  checkIfDocuemntExist(path: string) {
-    return this.http.post(this.apiUrl + '/check', {path})
+  uploadDocument(file: File, path: string | null = null) {
+    this.uploadUtils.upload(this.apiUrl, file, path);
   }
-
 
 }

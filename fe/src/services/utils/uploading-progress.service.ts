@@ -26,8 +26,7 @@ export class UploadingProgressService {
   updateStatusSuccess(attachment:Attachment) {
     const lastValue = this.files$.value;
     const index = lastValue.findIndex((i) => attachment.default_url.includes(i.fileName) && i.status === 'uploading')
-    console.log(index)
-    if (index !== -1) {
+     if (index !== -1) {
       lastValue[index] = {...lastValue[index], url: attachment.url, status: 'uploaded'}
       this.files$.next(lastValue);
       console.log('Success', lastValue)
@@ -40,8 +39,6 @@ export class UploadingProgressService {
     if (index !== -1) {
       lastValue[index] = {...lastValue[index], url: null, status: 'failed'}
       this.files$.next(lastValue);
-      console.log('failed', lastValue)
-
     }
   }
 

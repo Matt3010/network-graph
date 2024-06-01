@@ -58,7 +58,6 @@ export class ManagerService {
   public deleteDir(path: string) {
     console.log(path);
     this.http.delete(`${this.apiUrl}/dir/` + path).subscribe(res => {
-
     });
   }
 

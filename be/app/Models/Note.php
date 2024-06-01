@@ -48,6 +48,6 @@ class Note extends Model
     public function uploadDocument($file)
     {
         $documentUtils = new DocumentUtils();
-        return $documentUtils->uploadForEntity($file, $this);
+        return $documentUtils->upload($file,null, $this);
     }
 }
