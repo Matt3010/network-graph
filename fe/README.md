@@ -4,6 +4,7 @@
 
 - Collegamenti tra note
 - Fix della falla con il login con provider GOOGLE
+- Gestire il filtering delle entità
 - Nella lista delle note ci deve essere un tooltip poiché il testo potrebbe essere troncato
   - Tooltip di preview con riassunto in poche righe del contenuto della nota
 - Notes editor migliorato e con più funzioni (con AI per esempio)
