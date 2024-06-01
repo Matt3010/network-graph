@@ -26,5 +26,6 @@
 - Dettatura vocale di un testo su una nota
 - Inserire suggerimenti dell'intelligenza artificiale in base a ciò che viene scritto per anticipare e/o prevedere ciò che l'utente vuole scrivere (anche in base al contenuto delle altre note?)
 - Modalità scura
-- Offrire notifiche personalizzabili per scadenze, promemoria e aggiornamenti di collaborazione
+- Offrire notifiche personalizzabili per scadenze, promemoria e aggiornamenti di collaborazione (magari siano notifiche singole o ricorsive nel tempo).
+
 - Integrazione con Drive, Calendar o altri servizi non di Google
