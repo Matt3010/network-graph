@@ -1,8 +1,8 @@
 <div class="cont" *ngIf="(filesUploaded$ | async)!.length > 0">
-  <div class="outer d-flex align-items-center justify-content-between px-3">
-    <span [class]="shouldBeExpanded ? 'adjust': null" class="label-sm">{{(getFilesUploaded() | async) || 0}} files uploaded</span>
+  <div [class]="shouldBeExpanded ? 'adjust': null" class="outer d-flex align-items-center justify-content-between px-3">
+    <span class="label-sm">{{(getFilesUploaded() | async) || 0}} files uploaded</span>
     <div>
-      <img [class]="shouldBeExpanded ? 'adjust': null" [class.rotate-180-left]="shouldBeExpanded"
+      <img [class.rotate-180-left]="shouldBeExpanded"
            (click)="shouldBeExpanded = !shouldBeExpanded" class="tick"
            width="30px"
            src="assets/network_assets/tick-down.svg" alt="toggle">
@@ -28,7 +28,7 @@
         <img width="24px" class="entry-res" src="assets/network_assets/link.svg" alt="open">
       </a>
 
-      <div class="w-100 link" *ngIf="file.status === 'uploaded'">
+      <div class="w-100 link me-2" *ngIf="file.status === 'uploaded'">
         <a [href]="file.url" target="_blank">
           <img width="20px" src="assets/network_assets/link.svg" alt="open">
         </a>
