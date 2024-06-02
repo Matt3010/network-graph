@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [ApiTokenController::class, 'login']);
+    Route::post('/login-google', [ApiTokenController::class, 'loginWithGoogle']);
     Route::post('/register', [ApiTokenController::class, 'register']);
     Route::middleware('auth:sanctum')->post('/logout', [ApiTokenController::class, 'logout']);
 });

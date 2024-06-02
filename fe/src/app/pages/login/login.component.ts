@@ -38,10 +38,9 @@ export class LoginComponent implements OnInit {
   listenForGoogleLogin() {
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user)
-        this.authService.login({
+        this.authService.loginWithGoogle({
           email: user.email,
-          password: user.provider,
-          token_name: 'google_login'
+          idToken: user.idToken
         })
     });
   }

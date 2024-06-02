@@ -62,6 +62,31 @@ export class AuthService {
       })
   }
 
+  loginWithGoogle(body: any) {
+    this.http.post(this.apiUrl + '/login-google', body)
+      .subscribe((res) => {
+        this.handleLoginSuccess(res)
+        this.toastrService.success('Logged in successfully.', 'Success', {
+          positionClass: 'toast-top-left',
+        })
+        console.log(res);
+      }, (err) => {
+        if (err.status === 422) {
+          this.toastrService.error(err.error.message, 'Error', {
+            positionClass: 'toast-top-left',
+          })
+        } else if (err.status === 401 && !err.error.message) {
+          this.toastrService.error('Invalid credentials...', 'Error', {
+            positionClass: 'toast-top-left',
+          })
+        } else if (err.status === 404 ) {
+          this.toastrService.error('Email not found! You must register before.', 'Error', {
+            positionClass: 'toast-top-left',
+          })
+        }
+      })
+  }
+
 
   me() {
       this.http.get<User>(environment.api_url + '/me').subscribe(

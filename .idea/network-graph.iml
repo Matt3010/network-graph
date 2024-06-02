@@ -131,6 +131,14 @@
       <excludeFolder url="file://$MODULE_DIR$/be/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/be/vendor/fabpot/goutte" />
       <excludeFolder url="file://$MODULE_DIR$/be/vendor/filp/whoops" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/google/apiclient" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/google/apiclient-services" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/phpseclib/phpseclib" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/be/vendor/psr/cache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
