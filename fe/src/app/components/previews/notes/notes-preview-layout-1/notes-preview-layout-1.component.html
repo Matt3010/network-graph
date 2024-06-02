@@ -2,7 +2,7 @@
 
   <div class="d-flex align-items-center justify-content-between">
     <div class="col-auto m-0 p-0 d-flex flex-column">
-      <span class="title text-truncate d-inline-block" style="max-width: 150px">
+      <span [tooltip]="note.title" containerClass="tooltipCss" placement="top" class="title text-truncate d-inline-block" style="max-width: 150px">
         {{note.title}}
       </span>
       <div>

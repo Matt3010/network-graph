@@ -19,7 +19,6 @@ import {HeaderComponent} from "../components/sidebar/header/header.component";
 import {DividerComponent} from "../components/common/ui/divider/divider.component";
 import {MenuComponent} from "../components/sidebar/menu/menu.component";
 import {SimpleTitleComponent} from "../components/common/ui/titles/simple-title/simple-title.component";
-import {TooltipModule} from "primeng/tooltip";
 import {TableModule} from 'primeng/table';
 import {
   NotesPreviewLayout1Component
@@ -28,6 +27,10 @@ import {EditComponent} from "./notes-edit/edit.component";
 import {DropzoneComponent} from './dropzone/dropzone.component';
 import {DateAgoPipe} from "../../pipes/date-ago.pipe";
 import {UploadingProgressComponent} from "../components/previews/uploading-progress/uploading-progress.component";
+import {TooltipModule} from "ngx-bootstrap/tooltip";
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
+import {MdSmComponent} from "../components/common/ui/modals-templates/md-sm/md-sm.component";
+import {NoteMenuModalComponent} from "../components/common/ui/modals/note-menu-modal/note-menu-modal.component";
 
 
 @NgModule({
@@ -51,7 +54,9 @@ import {UploadingProgressComponent} from "../components/previews/uploading-progr
     SimpleTitleComponent,
     NotesPreviewLayout1Component,
     DropzoneComponent,
-    UploadingProgressComponent
+    UploadingProgressComponent,
+    MdSmComponent,
+    NoteMenuModalComponent,
   ],
   imports: [
     CommonModule,
@@ -61,9 +66,9 @@ import {UploadingProgressComponent} from "../components/previews/uploading-progr
     ReactiveFormsModule,
     FormsModule,
     EditorModule,
-    TooltipModule,
     TableModule,
-  ]
+    TooltipModule.forRoot(),
+   ]
 })
 export class PagesModule {
 }

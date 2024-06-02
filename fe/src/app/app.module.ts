@@ -15,7 +15,7 @@ import {
   SocialAuthServiceConfig,
   SocialLoginModule
 } from '@abacritt/angularx-social-login';
-import {TooltipModule} from "primeng/tooltip";
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import {TooltipModule} from "primeng/tooltip";
     ToastrModule.forRoot(),
     SocialLoginModule,
     GoogleSigninButtonModule,
-    TooltipModule,
+    TooltipModule.forRoot(),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

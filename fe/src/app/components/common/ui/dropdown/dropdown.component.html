@@ -1,0 +1,18 @@
+<div class="col-auto dropdown btn-group p-0" dropdown (click)="$event.stopPropagation()">
+     <div dropdownToggle>
+      <img width="30px" src="assets/network_assets/more.svg" alt="menu">
+    </div>
+  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+      role="menu" aria-labelledby="button-basic">
+       <li *ngFor="let item of config; index as i"
+        [tooltip]="item.tooltipTextKey"
+        placement="auto"
+        role="menuitem"
+        (click)="doAction(item)"
+        class="dropdown-item cursor-pointer"
+        [ngClass]="{'text-danger' : item.hasDeleteItem, 'mb-3' : item.itemHasMarginBottom, 'item-list-disabled ' : item.disabled}">
+        <a class="ml-0 pl-0 mt-1 mb-1" title="{{ item.label }}">
+          {{ item.label }}</a>
+      </li>
+   </ul>
+</div>

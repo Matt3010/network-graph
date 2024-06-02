@@ -33,3 +33,10 @@
   height: 0px;
   width: 0px;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+.tooltipCss {
+  font-size: 12px;
+}

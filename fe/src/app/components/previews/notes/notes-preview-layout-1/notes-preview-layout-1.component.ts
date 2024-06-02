@@ -2,18 +2,27 @@ import {Component, Input, OnInit} from "@angular/core";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {Note} from "../../../../../services/note.service";
 import {Router} from "@angular/router";
+import {ComponentInjectorService} from "../../../../../services/utils/component-injector.service";
+import {MdSmComponent} from "../../../common/ui/modals-templates/md-sm/md-sm.component";
+import {EditComponent} from "../../../../pages/notes-edit/edit.component";
+import {LoginComponent} from "../../../../pages/login/login.component";
+import {NoteMenuModalComponent} from "../../../common/ui/modals/note-menu-modal/note-menu-modal.component";
+import {NotesComponent} from "../../../../pages/notes/notes.component";
 
 @Component({
   selector: 'app-notes-preview-layout-1',
   templateUrl: './notes-preview-layout-1.component.html',
   styleUrls: ['./notes-preview-layout-1.component.scss']
 })
-export class NotesPreviewLayout1Component implements OnInit{
+export class NotesPreviewLayout1Component implements OnInit {
 
   @Input() note!: Note;
   content!: SafeHtml;
 
-  constructor(private sanitizer: DomSanitizer, private router: Router) {
+  constructor(
+    private sanitizer: DomSanitizer,
+    private router: Router,
+    private componentInjector: ComponentInjectorService) {
   }
 
   ngOnInit() {
@@ -22,12 +31,14 @@ export class NotesPreviewLayout1Component implements OnInit{
   }
 
   goTo() {
-    this.router.navigateByUrl('pages/notes/edit/'+ this.note.id)
+    this.router.navigateByUrl('pages/notes/edit/' + this.note.id)
   }
 
   openDropDown() {
-    console.log('ciao')
+    const component = NoteMenuModalComponent;
+    this.componentInjector.createComponent(MdSmComponent, {component: component, title: this.note.title});
   }
+
 
   checkIfAttachmentsExists() {
     if (this.note.attachments && this.note.attachments.length > 0) {
