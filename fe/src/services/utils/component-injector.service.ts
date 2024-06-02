@@ -10,13 +10,10 @@ export class ComponentInjectorService {
     private injector: Injector
   ) {}
 
-  renderedComponents: ComponentRef<any>[] = [];
 
-  public createComponent(component: any, inputs: any, parentElement: HTMLElement = document.body): ComponentRef<any> {
-    // Destroy previously rendered components
-    this.renderedComponents.forEach((comp: ComponentRef<any>) => {
-      this.destroyComponent(comp);
-    });
+  currentActive: ComponentRef<any> | null = null;
+
+  public createComponent(component: any, inputs: any, parentElement: HTMLElement = document.body): void {
 
     // Create component factory
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
@@ -28,17 +25,20 @@ export class ComponentInjectorService {
     // Attach component to the Angular component tree
     this.appRef.attachView(componentRef.hostView);
 
+    if(this.currentActive) {
+      this.destroyComponent()
+    }
+
+    this.currentActive = componentRef;
+
     // Append the component's DOM element to the parent element
     parentElement.appendChild((componentRef.hostView as any).rootNodes[0]);
-
-    // Keep track of the rendered component
-    this.renderedComponents.push(componentRef);
-
-    return componentRef;
   }
 
-  public destroyComponent<T>(componentRef: ComponentRef<T>) {
-    this.appRef.detachView(componentRef.hostView);
-    componentRef.destroy();
+  public destroyComponent() {
+    if(this.currentActive) {
+      this.appRef.detachView(this.currentActive.hostView);
+      this.currentActive.destroy();
+    }
   }
 }

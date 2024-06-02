@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PatchNote;
-use App\Http\Requests\UploadDocumentRequest;
 use App\Models\Note;
 use App\Transformers\DocumentTransformer;
 use App\Transformers\NoteTransformer;
@@ -34,18 +33,20 @@ class NoteController extends Controller
     public function list(Request $request)
     {
         $query = strtolower($request->input('q'));
+        $sort = strtolower($request->input('s'));
         if ($query) {
             $notes = auth()
                 ->user()
                 ->notes()
                 ->where('title', 'ILIKE', '%' . $query . '%')
                 ->orWhere('body', 'ILIKE', '%' . $query . '%')
+                ->orderBy('created_at', $sort ?: 'desc')
                 ->get();
             if ($notes->count() === 0) {
                 return response()->json('nothing found', 404);
             }
         } else {
-            $notes = auth()->user()->notes()->get();
+            $notes = auth()->user()->notes()->orderBy('created_at', $sort ?: 'desc')->get();
         }
 
         $manager = new Manager();

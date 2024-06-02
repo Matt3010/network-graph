@@ -1,0 +1,18 @@
+.toolbox {
+  border: solid #e7e7e7 0.5px;
+  padding: 4px 14px;
+  border-radius: 6px;
+  color: gray;
+  gap: 10px;
+  cursor: pointer;
+  width: 115px;
+}
+
+.toolbox-hover:hover {
+  filter: brightness(0.8);
+}
+
+.invert {
+  transform: rotate(180deg);
+}
+

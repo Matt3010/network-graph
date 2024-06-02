@@ -1,5 +1,5 @@
 import {ComponentFactoryResolver, Injectable, Input, ViewChild, ViewContainerRef} from '@angular/core';
-import {ComponentInjectorService} from "../../../../../services/utils/component-injector.service";
+import {ComponentInjectorService} from "../../../services/utils/component-injector.service";
 
 @Injectable()
 export abstract class ModalTemplateAbstract {

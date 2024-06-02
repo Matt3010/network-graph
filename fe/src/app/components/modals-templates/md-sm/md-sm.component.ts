@@ -1,5 +1,5 @@
 import {Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef} from '@angular/core';
-import {ComponentInjectorService} from "../../../../../../services/utils/component-injector.service";
+import {ComponentInjectorService} from "../../../../services/utils/component-injector.service";
 import {ModalTemplateAbstract} from "../modal.template.abstract";
 
 @Component({
@@ -28,7 +28,7 @@ export class MdSmComponent extends ModalTemplateAbstract {
   }
 
   close() {
-    this.injectorService.destroyComponent(this.ref)
+    this.injectorService.destroyComponent()
   }
 
 }

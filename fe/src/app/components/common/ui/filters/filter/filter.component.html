@@ -1,0 +1,10 @@
+
+<div class="d-flex align-items-center" style="gap: 10px;">
+  <div class="toolbox toolbox-hover d-flex align-items-center" (click)="shouldShowToolbox = !shouldShowToolbox">
+    <img width="20px" src="assets/network_assets/filter.svg" alt="filter">
+    <span>Filter</span>
+  </div>
+  <div class="toolbox expanded " *ngIf="shouldShowToolbox || getLastFilter().length > 0">
+    <input [formControl]="queryFormControl" placeholder="Search..." class="input-search" type="text">
+  </div>
+</div>

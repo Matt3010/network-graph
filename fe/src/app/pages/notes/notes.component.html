@@ -1,10 +1,15 @@
-<div class="row p-4">
+<div class="d-flex flex-column p-4" style="gap: 20px;">
 
   <app-simple-title [pageTitle]="'all notes'"></app-simple-title>
 
+  <div class="d-flex align-items-center" style="gap: 10px">
+    <app-filter (emitQuery)="noteService.getMyNotes()"></app-filter>
+    <app-sort (emitSorting)="noteService.getMyNotes()"></app-sort>
+  </div>
+
   <!-- ALL NOTES LIST LAYOUT 1 COMPONENT -->
-  <div *ngIf="(myNotes$ | async)?.length! > 0" class="grid-container mt-4 mb-5">
-    <div *ngFor="let note of (myNotes$ | async | sort:'updated_at')"
+  <div *ngIf="(myNotes$ | async)?.length! > 0" class="grid-container mb-5">
+    <div *ngFor="let note of (myNotes$ | async)"
          class="grid-item">
       <app-notes-preview-layout-1 [note]="note"></app-notes-preview-layout-1>
     </div>

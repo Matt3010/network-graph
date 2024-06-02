@@ -41,12 +41,7 @@ export class NoteService {
   }
 
   init() {
-    const last = localStorage.getItem('network-last-query-search')
-    if (last) {
-      this.getMyNotes(last)
-    } else {
-      this.getMyNotes('')
-    }
+    this.getMyNotes();
   }
 
   createNewNote() {
@@ -60,8 +55,11 @@ export class NoteService {
       });
   }
 
-  getMyNotes(query?: string) {
-    this.http.get<any>(this.apiUrl + '/all?q=' + query)
+  getMyNotes() {
+    const sort = localStorage.getItem('network-sort-filter')!
+    const query = localStorage.getItem('network-query-filter')!
+
+    this.http.get<any>(this.apiUrl + '/all?q=' + query + '&s='+sort)
       .pipe(
         map((res) => res.data),
         map((data: any) => data.map((note: any) => ({

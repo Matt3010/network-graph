@@ -3,10 +3,10 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {Note} from "../../../../../services/note.service";
 import {Router} from "@angular/router";
 import {ComponentInjectorService} from "../../../../../services/utils/component-injector.service";
-import {MdSmComponent} from "../../../common/ui/modals-templates/md-sm/md-sm.component";
+import {MdSmComponent} from "../../../modals-templates/md-sm/md-sm.component";
 import {EditComponent} from "../../../../pages/notes-edit/edit.component";
 import {LoginComponent} from "../../../../pages/login/login.component";
-import {NoteMenuModalComponent} from "../../../common/ui/modals/note-menu-modal/note-menu-modal.component";
+import {NoteMenuModalComponent} from "../../../modals/note-menu-modal/note-menu-modal.component";
 import {NotesComponent} from "../../../../pages/notes/notes.component";
 
 @Component({

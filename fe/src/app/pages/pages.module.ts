@@ -28,9 +28,10 @@ import {DropzoneComponent} from './dropzone/dropzone.component';
 import {DateAgoPipe} from "../../pipes/date-ago.pipe";
 import {UploadingProgressComponent} from "../components/previews/uploading-progress/uploading-progress.component";
 import {TooltipModule} from "ngx-bootstrap/tooltip";
-import {BsDropdownModule} from "ngx-bootstrap/dropdown";
-import {MdSmComponent} from "../components/common/ui/modals-templates/md-sm/md-sm.component";
-import {NoteMenuModalComponent} from "../components/common/ui/modals/note-menu-modal/note-menu-modal.component";
+import {MdSmComponent} from "../components/modals-templates/md-sm/md-sm.component";
+import {NoteMenuModalComponent} from "../components/modals/note-menu-modal/note-menu-modal.component";
+import {FilterComponent} from "../components/common/ui/filters/filter/filter.component";
+import {SortComponent} from "../components/common/ui/filters/sort/sort.component";
 
 
 @NgModule({
@@ -57,6 +58,8 @@ import {NoteMenuModalComponent} from "../components/common/ui/modals/note-menu-m
     UploadingProgressComponent,
     MdSmComponent,
     NoteMenuModalComponent,
+    FilterComponent,
+    SortComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +71,7 @@ import {NoteMenuModalComponent} from "../components/common/ui/modals/note-menu-m
     EditorModule,
     TableModule,
     TooltipModule.forRoot(),
-   ]
+  ]
 })
 export class PagesModule {
 }

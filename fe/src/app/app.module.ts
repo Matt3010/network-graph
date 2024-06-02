@@ -21,7 +21,7 @@ import {TooltipModule} from 'ngx-bootstrap/tooltip';
   declarations: [
     AppComponent,
     LoginComponent,
-   ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
