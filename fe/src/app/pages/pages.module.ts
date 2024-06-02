@@ -33,7 +33,6 @@ import {NoteMenuModalComponent} from "../components/modals/note-menu-modal/note-
 import {FilterComponent} from "../components/common/ui/filters/filter/filter.component";
 import {SortComponent} from "../components/common/ui/filters/sort/sort.component";
 
-
 @NgModule({
   declarations: [
     PagesComponent,
@@ -59,7 +58,7 @@ import {SortComponent} from "../components/common/ui/filters/sort/sort.component
     MdSmComponent,
     NoteMenuModalComponent,
     FilterComponent,
-    SortComponent
+    SortComponent,
   ],
   imports: [
     CommonModule,
@@ -72,6 +71,7 @@ import {SortComponent} from "../components/common/ui/filters/sort/sort.component
     TableModule,
     TooltipModule.forRoot(),
   ]
+
 })
 export class PagesModule {
 }

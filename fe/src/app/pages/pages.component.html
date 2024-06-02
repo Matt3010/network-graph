@@ -1,3 +1,20 @@
+<div *ngIf="false">
+  <button (click)="startRecognition()">Start Speech Recognition</button>
+  <div>
+    <h2>Interim Results:</h2>
+    <p>{{ speechService.interim }}</p>
+  </div>
+  <div>
+    <h2>Final Results:</h2>
+    <p>{{ speechService.final }}</p>
+  </div>
+
+  <img id="speeching" class="speech" width="90px" src="assets/network_assets/lottie/speech.gif" alt="speech">
+
+</div>
+
+
+
 <div class="d-flex flex-row vh-100">
   <div class="col-auto">
     <app-sidebar></app-sidebar>
