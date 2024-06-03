@@ -56,8 +56,8 @@ export class NoteService {
   }
 
   getMyNotes() {
-    const sort = localStorage.getItem('network-sort-filter')!
-    const query = localStorage.getItem('network-query-filter')!
+    const sort = localStorage.getItem('network-sort-filter') ? localStorage.getItem('network-sort-filter') : ''
+    const query = localStorage.getItem('network-query-filter') ? localStorage.getItem('network-query-filter') : ''
 
     this.http.get<any>(this.apiUrl + '/all?q=' + query + '&s='+sort)
       .pipe(

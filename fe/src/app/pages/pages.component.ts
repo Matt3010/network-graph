@@ -16,7 +16,6 @@ export class PagesComponent implements AfterViewInit{
     private noteService: NoteService,
     public speechService: SpeechRecognitionService
   ) {
-    localStorage.getItem('network-locked') ? null : localStorage.setItem('network-locked', 'false');
   }
 
   ngAfterViewInit() {
