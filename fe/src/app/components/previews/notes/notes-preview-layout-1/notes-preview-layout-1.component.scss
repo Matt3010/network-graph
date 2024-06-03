@@ -1,11 +1,11 @@
 .card {
-  width: 300px;
+  width: 100%;
   background-color: #f6f8fa;
   border-radius: 12px;
   padding: 20px;
   border: solid rgba(72, 0, 252, 0.16) 0.5px;
 
-  &:hover {
+   &:hover {
     filter: brightness(0.95);
     cursor: pointer;
     transition: all 0.3s;

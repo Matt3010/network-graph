@@ -1,8 +1,8 @@
 <div class="card position-relative" (click)="goTo()">
 
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="col m-0 p-0 d-flex flex-column">
-      <span [tooltip]="note.title" containerClass="tooltipCss" placement="top" class="title text-truncate d-inline-block" style="max-width:90%">
+  <div class="d-flex align-items-center">
+    <div class="col-10 m-0 p-0 d-flex flex-column">
+      <span [tooltip]="note.title" placement="top" class="title text-truncate d-inline-block">
         {{note.title}}
       </span>
       <div>
@@ -17,7 +17,7 @@
     </div>
 
     <div (click)="openDropDown(); $event.stopPropagation()"
-         class="me-3 dot-group col-auto m-0 p-0 d-flex flex-column justify-content-center align-items-center"
+         class="me-3 dot-group col-2 m-0 p-0 d-flex flex-column justify-content-center align-items-center"
          style="gap: 3px;">
       <div class="dot"></div>
       <div class="dot"></div>
