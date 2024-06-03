@@ -15,27 +15,7 @@
 }
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
   gap: 20px;
- }
-
-/* Media query per 3 colonne */
-@media screen and (max-width: 1100px) {
-  .grid-container {
-    grid-template-columns: auto auto auto;
-  }
 }
 
-/* Media query per 2 colonne */
-@media screen and (max-width: 900px) {
-  .grid-container {
-    grid-template-columns: auto auto;
-  }
-}
-
-/* Media query per 1 colonna */
-@media screen and (max-width: 600px) {
-  .grid-container {
-    grid-template-columns: auto;
-  }
-}
