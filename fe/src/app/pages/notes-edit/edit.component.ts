@@ -41,7 +41,6 @@ export class EditComponent implements OnDestroy {
     private noteService: NoteService,
     private activatedRoute: ActivatedRoute,
   ) {
-    this.initializeLock();
     this.editForm.reset();
     this.getNote();
     this.editForm.valueChanges.pipe(debounceTime(700))
@@ -82,14 +81,6 @@ export class EditComponent implements OnDestroy {
     });
   }
 
-  initializeLock() {
-    this.isLock = JSON.parse(localStorage.getItem('network-locked')!)!;
-  }
-
-  toggleLock() {
-    this.isLock = !this.isLock;
-    localStorage.setItem('network-locked', JSON.stringify(this.isLock));
-  }
 
   initForm(noteData: Note) {
     this.editForm.setValue({
