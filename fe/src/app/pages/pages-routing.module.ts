@@ -8,13 +8,13 @@ import {EditComponent} from "./notes-edit/edit.component";
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: '/pages/notes'
+  },
+  {
+    path: '',
     component: PagesComponent,
     children: [
-      {
-        path: '',
-        pathMatch: "full",
-        redirectTo: 'home'
-      },
       {
         path: 'cloud',
         component: ManagerComponent
