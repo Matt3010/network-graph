@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {PagesComponent} from './pages.component';
 import {NotesComponent} from "./notes/notes.component";
 import {ManagerComponent} from "./manager/manager.component";
-import {EditComponent} from "./notes-edit/edit.component";
+import {WriteComponent} from "./write/write.component";
 
 const routes: Routes = [
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
           },
           {
             path: 'edit/:id',
-            component: EditComponent
+            component: WriteComponent
           }
         ]
       },

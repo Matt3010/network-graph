@@ -23,7 +23,7 @@ import {TableModule} from 'primeng/table';
 import {
   NotesPreviewLayout1Component
 } from "../components/previews/notes/notes-preview-layout-1/notes-preview-layout-1.component";
-import {EditComponent} from "./notes-edit/edit.component";
+import {WriteComponent} from "./write/write.component";
 import {DropzoneComponent} from './dropzone/dropzone.component';
 import {DateAgoPipe} from "../../pipes/date-ago.pipe";
 import {UploadingProgressComponent} from "../components/previews/uploading-progress/uploading-progress.component";
@@ -38,7 +38,7 @@ import {SortComponent} from "../components/common/ui/filters/sort/sort.component
     PagesComponent,
     NotesComponent,
     UserDropdownComponent,
-    EditComponent,
+    WriteComponent,
     StatisticsComponent,
     GobackComponent,
     SortPipe,
@@ -59,6 +59,7 @@ import {SortComponent} from "../components/common/ui/filters/sort/sort.component
     NoteMenuModalComponent,
     FilterComponent,
     SortComponent,
+
   ],
   imports: [
     CommonModule,

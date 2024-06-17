@@ -4,7 +4,7 @@ import {Note} from "../../../../../services/note.service";
 import {Router} from "@angular/router";
 import {ComponentInjectorService} from "../../../../../services/utils/component-injector.service";
 import {MdSmComponent} from "../../../modals-templates/md-sm/md-sm.component";
-import {EditComponent} from "../../../../pages/notes-edit/edit.component";
+import {WriteComponent} from "../../../../pages/write/write.component";
 import {LoginComponent} from "../../../../pages/login/login.component";
 import {NoteMenuModalComponent} from "../../../modals/note-menu-modal/note-menu-modal.component";
 import {NotesComponent} from "../../../../pages/notes/notes.component";
