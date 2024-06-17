@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 import {TokenService} from './token.service';
 import {Router} from '@angular/router';
@@ -11,7 +11,6 @@ import {UploadingProgressService} from "./utils/uploading-progress.service";
 import {CanUpload, UploadUtils} from "./utils/upload.utils";
 
 export interface Note extends CanUpload {
-  title: string;
   body: string;
   created_by: string;
   created_at: string;
@@ -91,18 +90,15 @@ export class NoteService {
   }
 
   saveNote(noteUpdated: Note) {
-    return this.http.patch<string>(this.apiUrl + '/' + noteUpdated.id, noteUpdated).pipe(
-      tap((res: string) => {
-        if (res === 'saved') {
-          const current = this.myNotes$.value;
-          const index = current.findIndex((i) => i.id === noteUpdated.id)
-          if (index !== -1) {
-            current[index] = noteUpdated;
-            this.myNotes$.next([...current]);
-          }
-        }
-      })
-    )
+    return this.http.patch<Note>(this.apiUrl + '/' + noteUpdated.id, noteUpdated)
+      .subscribe((res: Note) => {
+      const current = this.myNotes$.value;
+      const index = current.findIndex((i) => i.id === noteUpdated.id)
+      if (index !== -1) {
+        current[index] = res;
+        this.myNotes$.next([...current]);
+      }
+    })
   }
 
   find(id: string): Observable<Note> {

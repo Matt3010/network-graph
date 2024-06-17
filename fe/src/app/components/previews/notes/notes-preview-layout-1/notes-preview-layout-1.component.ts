@@ -36,7 +36,7 @@ export class NotesPreviewLayout1Component implements OnInit {
 
   openDropDown() {
     const component = NoteMenuModalComponent;
-    this.componentInjector.createComponent(MdSmComponent, {component: component, title: this.note.title});
+    this.componentInjector.createComponent(MdSmComponent, {component: component, title: this.note.body.split(' ').splice(0, 10).concat(' ')});
   }
 
 

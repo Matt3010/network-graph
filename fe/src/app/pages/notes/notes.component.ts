@@ -23,7 +23,7 @@ export class NotesComponent {
     return this.myNotes$.pipe(
       map(notes => {
         if (this.query && this.query.trim()) {
-          const filteredNotes = notes.filter(note => note.title.includes(this.query));
+          const filteredNotes = notes.filter(note => note.body.includes(this.query));
           return filteredNotes.length > 0 ? filteredNotes : notes;
         }
         return notes;

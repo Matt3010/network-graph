@@ -53,7 +53,10 @@ export class UploadUtils {
         map((res: any) => res.data)
       )
       .subscribe((doc: Attachment) => {
+        console.log('DOOOOC', doc)
+
         if (doc) {
+          console.log('DOOOOC', doc)
           this.checkIfDocuemntExist(doc.default_url)
             .subscribe((check) => {
               if (check) {

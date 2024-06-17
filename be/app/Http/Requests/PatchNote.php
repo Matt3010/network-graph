@@ -21,8 +21,5 @@ class PatchNote extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title' => 'required'
-        ];
     }
 }

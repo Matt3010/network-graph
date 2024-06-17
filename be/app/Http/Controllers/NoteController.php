@@ -17,7 +17,6 @@ class NoteController extends Controller
     {
         $note = new Note([
             'id' => uuid_create(),
-            'title' => 'Note of the ' . now()->day . ' of ' . now()->monthName,
             'body' => null,
             'created_by' => auth()->user()->id,
         ]);
@@ -63,12 +62,14 @@ class NoteController extends Controller
         return response()->json($data);
     }
 
-    public function patch(Note $note, PatchNote $request)
+    public function patch(Note $note, Request $request)
     {
         $note->body = $request->body;
-        $note->title = $request->title;
-        if ($note->update()) {
-            return response()->json('saved', 200);
+         if ($note->update()) {
+             $manager = new Manager();
+             $resource = new Item($note, new NoteTransformer());
+             $data = $manager->createData($resource)->toArray();
+             return response()->json($data);
         } else {
             return response()->json('Error saving note', 422);
         }

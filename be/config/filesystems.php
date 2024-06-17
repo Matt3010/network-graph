@@ -6,8 +6,8 @@ return [
     'disks' => [
         's3' => [
             'driver' => 's3',
-            'key' => 'CUbTjDvMU6S5BmnRuG5T',
-            'secret' => 'qKFKViTkUNcdx7qjOVX0OM5o4IR5t5BVCoa0jYRD',
+            'key' => 'M8D2bqvdjy6TMkzt1Rrq',
+            'secret' => 'NwJH38AQGpth2rIrsQLjOgvVxXkhdd1WIfQLTidj',
             'region' => 'us-east-1',
             'bucket' => 'network-storage',
             'endpoint' => 'http://localhost:9000',
